@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/freevoice
+    username: merovingian
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true

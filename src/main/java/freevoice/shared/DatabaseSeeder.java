@@ -1,8 +1,8 @@
 package freevoice.shared;
 
-import freevoice.core.model.Role;
-import freevoice.core.model.UserEntity;
-import freevoice.core.repository.UserRepository;
+import freevoice.core.user.Role;
+import freevoice.core.user.UserEntity;
+import freevoice.core.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

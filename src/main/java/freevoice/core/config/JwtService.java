@@ -1,4 +1,4 @@
-package freevoice.core.service;
+package freevoice.core.config;
 
 import freevoice.shared.Constants;
 import io.jsonwebtoken.Claims;

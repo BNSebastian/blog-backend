@@ -1,6 +1,5 @@
-package freevoice.core.repository;
+package freevoice.core.user;
 
-import freevoice.core.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

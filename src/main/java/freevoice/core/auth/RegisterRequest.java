@@ -1,4 +1,4 @@
-package freevoice.core.model;
+package freevoice.core.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

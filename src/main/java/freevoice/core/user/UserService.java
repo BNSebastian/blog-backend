@@ -1,7 +1,6 @@
-package freevoice.core.service;
+package freevoice.core.user;
 
-import freevoice.core.model.UserEntity;
-
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,4 +9,6 @@ public interface UserService {
     void delete(UserEntity userEntity);
     Optional<List<UserEntity>> getAll();     // mine
     Boolean checkIfAdmin(Long id);    // mine
+    void changePassword(ChangePasswordRequest request, Principal connectedUser);
+
 }

@@ -1,6 +1,6 @@
 package freevoice.core.config;
 
-import freevoice.core.repository.UserRepository;
+import freevoice.core.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

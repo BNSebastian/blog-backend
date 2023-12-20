@@ -1,4 +1,4 @@
-package freevoice.core.model;
+package freevoice.core.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-    private Long id;
-    private String firstname;
-    private String lastname;
+public class AuthenticationRequest {
     private String email;
-    private String token;
+    String password;
 }

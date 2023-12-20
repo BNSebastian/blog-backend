@@ -1,4 +1,4 @@
-package freevoice.core.model;
+package freevoice.core.user;
 
 import jakarta.persistence.*;
 import lombok.*;

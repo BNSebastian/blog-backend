@@ -1,7 +1,9 @@
-package freevoice.core.service;
+package freevoice.core.auth;
 
-import freevoice.core.model.*;
-import freevoice.core.repository.UserRepository;
+import freevoice.core.config.JwtService;
+import freevoice.core.user.Role;
+import freevoice.core.user.UserEntity;
+import freevoice.core.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

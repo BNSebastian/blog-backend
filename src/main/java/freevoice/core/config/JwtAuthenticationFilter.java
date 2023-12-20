@@ -1,6 +1,5 @@
-package freevoice.core.util;
+package freevoice.core.config;
 
-import freevoice.core.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

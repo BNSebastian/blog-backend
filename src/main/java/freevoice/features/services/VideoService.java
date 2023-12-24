@@ -1,13 +1,13 @@
 package freevoice.features.services;
 
-import freevoice.features.models.VideoEntity;
+import freevoice.features.models.Video;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface VideoService {
-    VideoEntity createPost(VideoEntity videoEntity);
-    public VideoEntity getById(Long id);
-    public List<VideoEntity> getAll();
-    public VideoEntity updatePost(VideoEntity videos , Long id);
-    public void deleteVideos(Long id);
+    Video getVideo(String name);
+    void saveVideo(MultipartFile file, String name) throws IOException;
+    List<String> getAllVideoNames();
 }

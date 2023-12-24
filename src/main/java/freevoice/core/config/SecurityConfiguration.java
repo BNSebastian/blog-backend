@@ -29,7 +29,7 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:5500"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -39,28 +39,14 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // authorize requests
         http.authorizeHttpRequests(auth -> {
-            //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/pokemon")).hasRole("ADMIN");
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/auth/**")).permitAll();
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/activity/**")).authenticated();
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/type/**")).authenticated();
-//            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/**")).authenticated();
-            //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/**")).permitAll();
-            //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/pokemon")).authenticated();
-            //auth.anyRequest().authenticated();
-            //auth.anyRequest().permitAll();
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**")).authenticated();
+            //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");
         });
 
-        // disable CSRF
         http.csrf(AbstractHttpConfigurer::disable);
-
-        // by default uses a bean named corsConfigurationSource
-        http.cors(Customizer.withDefaults());
-        //http.cors(cors -> cors.disable());
-
-        // don't persist log in
+        http.cors(Customizer.withDefaults()); // by default uses a bean named corsConfigurationSource
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authenticationProvider(authenticationProvider);
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

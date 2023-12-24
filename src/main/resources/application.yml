@@ -8,11 +8,17 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 900MB
+      max-request-size: 915MB
 
-application:
-  security:
-    jwt:
-      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-      expiration: 86400000 # a day
-      refresh-token:
-        expiration: 604800000 # 7 days
+server:
+  error:
+    include-message: always
+
+constants:
+  filePath: Documents/projects/freevoice/videos
+

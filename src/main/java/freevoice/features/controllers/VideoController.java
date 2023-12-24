@@ -1,51 +1,44 @@
 package freevoice.features.controllers;
 
-import freevoice.features.exceptions.ControllerException;
-import freevoice.features.exceptions.ResourceNotFoundException;
-import freevoice.features.models.VideoEntity;
 import freevoice.features.services.VideoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/video")
+@RequestMapping("api/video")
+@AllArgsConstructor
 public class VideoController {
-
-    @Autowired
     private VideoService videoService;
 
-    @PostMapping("/save")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<VideoEntity> save(@RequestBody VideoEntity videoEntity) {
-        return new ResponseEntity<>(videoService.createPost(videoEntity), HttpStatus.OK);
+    // Each parameter annotated with @RequestParam corresponds to a form field where the String argument is the name of the field
+    @PostMapping()
+    public ResponseEntity<String> saveVideo(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("name") String name
+    ) throws IOException {
+        videoService.saveVideo(file, name);
+        return ResponseEntity.ok("Video saved successfully.");
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id) {
-        try {
-            VideoEntity video = videoService.getById(id);
-            return new ResponseEntity<VideoEntity>(video, HttpStatus.CREATED);
-        } catch (ResourceNotFoundException e) {
-            ControllerException controllerException = new ControllerException(e.getErrorCode(), e.getErrorMessage() + e.getMessage());
-            return new ResponseEntity<ControllerException>(controllerException, HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            ControllerException controllerException = new ControllerException("504", "id not found");
-            return new ResponseEntity<ControllerException>(controllerException, HttpStatus.BAD_REQUEST);
-        }
+    // {name} is a path variable in the url. It is extracted as the String parameter annotated with @PathVariable
+    @GetMapping("{name}")
+    public ResponseEntity<ByteArrayResource> getVideoByName(@PathVariable("name") String name){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new ByteArrayResource(videoService.getVideo(name).getData()));
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<?> getAll() {
-        VideoEntity videos = new VideoEntity();
-        try {
-            return new ResponseEntity<List<VideoEntity>>(videoService.getAll(), HttpStatus.CREATED);
-        } catch (Exception e) {
-            ControllerException controllerException = new ControllerException("404", "Empty database is found");
-            return new ResponseEntity<ControllerException>(controllerException, HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping("all")
+    public ResponseEntity<List<String>> getAllVideoNames(){
+        return ResponseEntity.ok(videoService.getAllVideoNames());
     }
 }

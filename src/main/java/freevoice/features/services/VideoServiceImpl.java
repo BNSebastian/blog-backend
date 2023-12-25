@@ -15,7 +15,18 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class VideoServiceImpl implements VideoService {
+
     private VideoRepository videoRepository;
+
+    @Override
+    @Transactional
+    public void saveVideo(MultipartFile file, String name) throws IOException {
+        if (videoRepository.existsByName(name)) {
+            throw new VideoAlreadyExistsException();
+        }
+        Video newVid = new Video(name, file.getBytes());
+        videoRepository.save(newVid);
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -32,13 +43,5 @@ public class VideoServiceImpl implements VideoService {
         return videoRepository.getAllEntryNames();
     }
 
-    @Override
-    @Transactional
-    public void saveVideo(MultipartFile file, String name) throws IOException {
-        if (videoRepository.existsByName(name)) {
-            throw new VideoAlreadyExistsException();
-        }
-        Video newVid = new Video(name, file.getBytes());
-        videoRepository.save(newVid);
-    }
+
 }

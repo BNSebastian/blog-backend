@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +26,9 @@ public class Video{
 
     @Lob
     private byte[] data;
+
+    @OneToMany(cascade=ALL, mappedBy = "videoComments")
+    private List<VideoComment> videoComments;
 
     public Video(String name, byte[] data) {
         this.name = name;

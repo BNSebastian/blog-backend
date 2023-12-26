@@ -31,10 +31,7 @@ public class VideoServiceImpl implements VideoService {
     @Override
     @Transactional(readOnly = true)
     public Video getVideo(String name) {
-        if (!videoRepository.existsByName(name)) {
-            throw new VideoNotFoundException();
-        }
-        return videoRepository.findByName(name);
+        return videoRepository.findByName(name).orElseThrow();
     }
 
     @Override

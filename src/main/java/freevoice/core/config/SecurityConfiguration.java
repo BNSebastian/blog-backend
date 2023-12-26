@@ -41,7 +41,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/auth/**")).permitAll();
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**")).authenticated();
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**")).permitAll();
             //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");
         });
 

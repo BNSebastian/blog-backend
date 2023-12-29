@@ -7,24 +7,34 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "video_comments")
+@Table(name = "comments")
 public class VideoComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
+
+    private Long parentId;
 
     @ManyToOne
     @JoinColumn(name="video_id", nullable=false)
     private Video video;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @Column(length = 4000)
     private String content;
+
+    private LocalDateTime createdOn;
 }

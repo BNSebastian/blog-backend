@@ -42,6 +42,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/auth/**")).permitAll();
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**")).permitAll();
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/videoComment/**")).permitAll();
             //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");
         });
 

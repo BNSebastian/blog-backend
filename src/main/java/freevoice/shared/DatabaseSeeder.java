@@ -31,6 +31,13 @@ public class DatabaseSeeder implements CommandLineRunner {
         admin.setPassword("$2a$10$r9ueA6pt.1oLoJRAoOXTYuG7akG9gpCDkKyNHdab2MbF3U8cOdjy2");
         admin.setRole(Role.ADMIN);
 
-        userRepository.saveAll(List.of(admin));
+        UserEntity user = new UserEntity();
+        user.setFirstname("mior");
+        user.setLastname("mior");
+        user.setEmail("mior@mior.com");
+        user.setPassword("$2a$10$ZJN5gSDxvo4sjPuHAxjQOuRGY41vi6Rfq0uRyzJKmAxNyuNFLFQtG");
+        user.setRole(Role.USER);
+
+        userRepository.saveAll(List.of(admin, user));
     }
 }

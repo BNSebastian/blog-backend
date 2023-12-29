@@ -1,9 +1,14 @@
 package freevoice.features.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import freevoice.features.models.Video;
 
-@ResponseStatus(value = HttpStatus.CONFLICT, reason = "A video with this name was not found")
+import java.io.Serial;
+
 public class VideoNotFoundException extends RuntimeException {
+    @Serial
+    private static final long serialVersionUID = 1;
 
+    public VideoNotFoundException(String name) {
+        super("!!!EXCEPTION!!! : the video named " + name + " was not found.");
+    }
 }

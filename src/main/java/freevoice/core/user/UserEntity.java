@@ -1,5 +1,6 @@
 package freevoice.core.user;
 
+import freevoice.features.models.VideoComment;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
 
 @Data
 @Builder
@@ -31,6 +34,9 @@ public class UserEntity implements UserDetails {
     @Getter
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(cascade=ALL, mappedBy = "user")
+    public List<VideoComment> videoComments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

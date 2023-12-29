@@ -1,6 +1,7 @@
 package freevoice.features.repositories;
 
 import freevoice.features.models.Video;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
+@Transactional
 public interface VideoRepository extends JpaRepository<Video, Long> {
     Optional<Video> findByName(String name);
 

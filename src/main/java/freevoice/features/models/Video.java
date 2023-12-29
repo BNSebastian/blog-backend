@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import static jakarta.persistence.CascadeType.ALL;
 @Table(name = "video")
 public class Video{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
@@ -27,7 +28,7 @@ public class Video{
     @Lob
     private byte[] data;
 
-    @OneToMany(cascade=ALL, mappedBy = "videoComments")
+    @OneToMany(cascade=ALL, mappedBy = "video")
     private List<VideoComment> videoComments;
 
     public Video(String name, byte[] data) {

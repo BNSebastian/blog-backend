@@ -1,5 +1,6 @@
 package freevoice.core.user;
 
+import freevoice.features.models.ChatComment;
 import freevoice.features.models.VideoComment;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,6 +38,9 @@ public class UserEntity implements UserDetails {
 
     @OneToMany(cascade=ALL, mappedBy = "user")
     public List<VideoComment> videoComments;
+
+    @OneToMany(cascade=ALL, mappedBy = "user")
+    public List<ChatComment> chatComments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

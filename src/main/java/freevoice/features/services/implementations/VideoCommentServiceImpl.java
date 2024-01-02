@@ -13,7 +13,6 @@ import freevoice.features.repositories.VideoRepository;
 import freevoice.features.services.VideoCommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -35,17 +34,17 @@ public class VideoCommentServiceImpl implements VideoCommentService {
     @Override
     public VideoCommentDto createComment(VideoCommentDto videoComment) {
         Video video = videoRepository.findByName(videoComment.getVideoName())
-                                     .orElseThrow(() ->new VideoNotFoundException(videoComment.getVideoName()));
+                .orElseThrow(() -> new VideoNotFoundException(videoComment.getVideoName()));
 
         UserEntity user = userRepository.findByEmail(videoComment.getUserEmail()).orElseThrow();
 
         VideoComment newComment = VideoComment.builder()
                 .parentId(videoComment.getParentId())
-                                              .video(video)
-                                              .user(user)
-                                              .content(videoComment.getContent())
-                                              .createdOn(LocalDateTime.now())
-                                              .build();
+                .video(video)
+                .user(user)
+                .content(videoComment.getContent())
+                .createdOn(LocalDateTime.now())
+                .build();
 
         VideoComment savedComment = videoCommentRepository.save(newComment);
 
@@ -55,26 +54,26 @@ public class VideoCommentServiceImpl implements VideoCommentService {
     @Override
     public VideoCommentDto getComment(Long commentId) {
         VideoComment comment = videoCommentRepository.findById(commentId)
-                                                     .orElseThrow(() -> new CommentNotFoundException(commentId.toString()));
+                .orElseThrow(() -> new CommentNotFoundException(commentId.toString()));
         return VideoCommentDto.mapToDto(comment);
     }
 
     @Override
     public List<VideoCommentDto> getAllComments(String videoName) {
         Video video = videoRepository.findByName(videoName)
-                                     .orElseThrow(() ->new VideoNotFoundException(videoName));
+                .orElseThrow(() -> new VideoNotFoundException(videoName));
 
         return video.getVideoComments()
-                    .stream()
-                    .map(VideoCommentDto::mapToDto)
-                    .collect(Collectors.toList());
+                .stream()
+                .map(VideoCommentDto::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public VideoCommentDto updateComment(UpdateVideoCommentDto request) {
         // get comment
         VideoComment comment = videoCommentRepository.findById(request.getId())
-                                                     .orElseThrow(() -> new CommentNotFoundException(request.getId().toString()));
+                .orElseThrow(() -> new CommentNotFoundException(request.getId().toString()));
         // update comment
         comment.setContent(request.getContent());
         // save comment
@@ -87,7 +86,7 @@ public class VideoCommentServiceImpl implements VideoCommentService {
     public void deleteComment(Long commentId) {
         // get comment
         VideoComment comment = videoCommentRepository.findById(commentId)
-                                                     .orElseThrow(() -> new CommentNotFoundException(commentId.toString()));
+                .orElseThrow(() -> new CommentNotFoundException(commentId.toString()));
         videoCommentRepository.delete(comment);
     }
 }

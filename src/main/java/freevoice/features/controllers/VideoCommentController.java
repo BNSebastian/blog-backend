@@ -20,35 +20,35 @@ public class VideoCommentController {
     private VideoCommentService videoCommentService;
 
     @PostMapping("/createComment")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<VideoCommentDto> createComment(@RequestBody VideoCommentDto comment) {
-        return new ResponseEntity<>(videoCommentService.createComment(comment), HttpStatus.CREATED);
+        return new ResponseEntity<>(videoCommentService.createComment(comment), HttpStatus.OK);
     }
 
     @GetMapping("/getComment/{commentId}")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<VideoCommentDto> getComment(@PathVariable Long commentId) {
-        return new ResponseEntity<>(videoCommentService.getComment(commentId), HttpStatus.FOUND);
+        return new ResponseEntity<>(videoCommentService.getComment(commentId), HttpStatus.OK);
     }
 
     @GetMapping("/getAllComments/{videoName}")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<VideoCommentDto>> getAllComments(@PathVariable String videoName) {
-        return new ResponseEntity<>(videoCommentService.getAllComments(videoName), HttpStatus.FOUND);
+        return new ResponseEntity<>(videoCommentService.getAllComments(videoName), HttpStatus.OK);
     }
 
     @PatchMapping("/updateComment")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<VideoCommentDto> updateComment(@RequestBody UpdateVideoCommentDto comment) {
-        return new ResponseEntity<>(videoCommentService.updateComment(comment), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(videoCommentService.updateComment(comment), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteComment/{commentId}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteComment(@PathVariable Long commentId) {
         videoCommentService.deleteComment(commentId);
         String message = "Successfully deleted the comment with id: " + commentId;
-        return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
 }

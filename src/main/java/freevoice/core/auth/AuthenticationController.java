@@ -28,7 +28,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(authService.authenticate(request));
     }
 
-    @GetMapping("/isAdmin")
+    @PostMapping("/isAdmin")
     public ResponseEntity<Boolean> isAdmin(@RequestBody Map<String, Long> body) {
         Long userId = body.get("userId");
         return ResponseEntity.ok(userService.checkIfAdmin(userId));

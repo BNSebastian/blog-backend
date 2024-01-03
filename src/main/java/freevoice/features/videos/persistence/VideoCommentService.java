@@ -1,7 +1,7 @@
-package freevoice.features.services;
+package freevoice.features.videos.persistence;
 
-import freevoice.features.models.dtos.UpdateVideoCommentDto;
-import freevoice.features.models.dtos.VideoCommentDto;
+import freevoice.features.videos.models.VideoCommentUpdateDto;
+import freevoice.features.videos.models.VideoCommentDto;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ public interface VideoCommentService {
     VideoCommentDto createComment(VideoCommentDto videoComment);
     VideoCommentDto getComment(Long commentId);
     List<VideoCommentDto> getAllComments(String videoName);
-    VideoCommentDto updateComment(UpdateVideoCommentDto request);
+    VideoCommentDto updateComment(VideoCommentUpdateDto request);
     void deleteComment(Long commentId);
 }

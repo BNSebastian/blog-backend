@@ -1,6 +1,6 @@
-package freevoice.features.services;
+package freevoice.features.videos.persistence;
 
-import freevoice.features.models.Video;
+import freevoice.features.videos.models.Video;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package freevoice.features.exceptions;
+package freevoice.features.videos.exceptions;
 
 import java.io.Serial;
 

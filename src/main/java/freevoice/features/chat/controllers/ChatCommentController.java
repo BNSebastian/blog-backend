@@ -1,8 +1,8 @@
-package freevoice.features.controllers;
+package freevoice.features.chat.controllers;
 
-import freevoice.features.models.dtos.ChatCommentDto;
-import freevoice.features.models.dtos.CreateChatCommentDto;
-import freevoice.features.services.ChatCommentService;
+import freevoice.features.chat.models.ChatCommentDto;
+import freevoice.features.chat.models.ChatCommentCreateDto;
+import freevoice.features.chat.persistence.ChatCommentService;
 import freevoice.shared.URLS;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class ChatCommentController {
 
     @PostMapping(URLS.createChatComment)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ChatCommentDto> createComment(@RequestBody CreateChatCommentDto request) {
+    public ResponseEntity<ChatCommentDto> createComment(@RequestBody ChatCommentCreateDto request) {
         return new ResponseEntity<>(chatCommentService.createComment(request), HttpStatus.OK);
     }
 

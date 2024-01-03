@@ -1,4 +1,4 @@
-package freevoice.features.models;
+package freevoice.features.videos.models;
 
 import freevoice.core.user.UserEntity;
 import jakarta.persistence.*;
@@ -14,18 +14,24 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "chat_comments")
-public class ChatComment {
+@Table(name = "comments")
+public class VideoComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 4000)
-    private String content;
+    private Long parentId;
+
+    @ManyToOne
+    @JoinColumn(name="video_id", nullable=false)
+    private Video video;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @Column(length = 4000)
+    private String content;
 
     private LocalDateTime createdOn;
 }

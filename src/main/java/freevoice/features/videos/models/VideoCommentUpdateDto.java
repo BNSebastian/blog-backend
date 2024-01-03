@@ -1,4 +1,4 @@
-package freevoice.features.models.dtos;
+package freevoice.features.videos.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateChatCommentDto {
-    private String userEmail;
+public class VideoCommentUpdateDto {
+    private Long id;
     private String content;
 }

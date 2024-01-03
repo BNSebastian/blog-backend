@@ -1,16 +1,13 @@
-package freevoice.features.services.implementations;
+package freevoice.features.videos.persistence;
 
 import freevoice.core.user.UserEntity;
 import freevoice.core.user.UserRepository;
-import freevoice.features.exceptions.CommentNotFoundException;
-import freevoice.features.exceptions.VideoNotFoundException;
-import freevoice.features.models.Video;
-import freevoice.features.models.VideoComment;
-import freevoice.features.models.dtos.UpdateVideoCommentDto;
-import freevoice.features.models.dtos.VideoCommentDto;
-import freevoice.features.repositories.VideoCommentRepository;
-import freevoice.features.repositories.VideoRepository;
-import freevoice.features.services.VideoCommentService;
+import freevoice.features.videos.exceptions.CommentNotFoundException;
+import freevoice.features.videos.exceptions.VideoNotFoundException;
+import freevoice.features.videos.models.Video;
+import freevoice.features.videos.models.VideoComment;
+import freevoice.features.videos.models.VideoCommentUpdateDto;
+import freevoice.features.videos.models.VideoCommentDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +31,7 @@ public class VideoCommentServiceImpl implements VideoCommentService {
     @Override
     public VideoCommentDto createComment(VideoCommentDto videoComment) {
         Video video = videoRepository.findByName(videoComment.getVideoName())
-                .orElseThrow(() -> new VideoNotFoundException(videoComment.getVideoName()));
+                                     .orElseThrow(() -> new VideoNotFoundException(videoComment.getVideoName()));
 
         UserEntity user = userRepository.findByEmail(videoComment.getUserEmail()).orElseThrow();
 
@@ -70,7 +67,7 @@ public class VideoCommentServiceImpl implements VideoCommentService {
     }
 
     @Override
-    public VideoCommentDto updateComment(UpdateVideoCommentDto request) {
+    public VideoCommentDto updateComment(VideoCommentUpdateDto request) {
         // get comment
         VideoComment comment = videoCommentRepository.findById(request.getId())
                 .orElseThrow(() -> new CommentNotFoundException(request.getId().toString()));

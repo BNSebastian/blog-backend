@@ -1,7 +1,7 @@
 package freevoice.core.user;
 
-import freevoice.features.models.ChatComment;
-import freevoice.features.models.VideoComment;
+import freevoice.features.chat.models.ChatComment;
+import freevoice.features.videos.models.VideoComment;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

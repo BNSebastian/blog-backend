@@ -1,13 +1,10 @@
-package freevoice.features.services.implementations;
+package freevoice.features.chat.persistence;
 
 import freevoice.core.user.UserEntity;
 import freevoice.core.user.UserRepository;
-import freevoice.features.models.ChatComment;
-import freevoice.features.models.dtos.ChatCommentDto;
-import freevoice.features.models.dtos.CreateChatCommentDto;
-import freevoice.features.models.dtos.UpdateVideoCommentDto;
-import freevoice.features.repositories.ChatCommentRepository;
-import freevoice.features.services.ChatCommentService;
+import freevoice.features.chat.models.ChatComment;
+import freevoice.features.chat.models.ChatCommentDto;
+import freevoice.features.chat.models.ChatCommentCreateDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +24,7 @@ public class ChatCommentServiceImpl implements ChatCommentService {
     private UserRepository userRepository;
 
     @Override
-    public ChatCommentDto createComment(CreateChatCommentDto request) {
+    public ChatCommentDto createComment(ChatCommentCreateDto request) {
         UserEntity user = userRepository
                 .findByEmail(request.getUserEmail())
                 .orElseThrow();

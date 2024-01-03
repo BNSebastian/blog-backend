@@ -1,4 +1,4 @@
-package freevoice.features.models;
+package freevoice.features.chat.models;
 
 import freevoice.core.user.UserEntity;
 import jakarta.persistence.*;
@@ -8,33 +8,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
-import static jakarta.persistence.CascadeType.ALL;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "comments")
-public class VideoComment {
+@Table(name = "chat_comments")
+public class ChatComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long parentId;
-
-    @ManyToOne
-    @JoinColumn(name="video_id", nullable=false)
-    private Video video;
+    @Column(length = 4000)
+    private String content;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-    @Column(length = 4000)
-    private String content;
 
     private LocalDateTime createdOn;
 }

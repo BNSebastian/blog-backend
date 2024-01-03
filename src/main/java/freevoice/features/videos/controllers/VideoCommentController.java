@@ -1,8 +1,8 @@
-package freevoice.features.controllers;
+package freevoice.features.videos.controllers;
 
-import freevoice.features.models.dtos.UpdateVideoCommentDto;
-import freevoice.features.models.dtos.VideoCommentDto;
-import freevoice.features.services.VideoCommentService;
+import freevoice.features.videos.models.VideoCommentUpdateDto;
+import freevoice.features.videos.models.VideoCommentDto;
+import freevoice.features.videos.persistence.VideoCommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,7 +39,7 @@ public class VideoCommentController {
 
     @PatchMapping("/updateComment")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<VideoCommentDto> updateComment(@RequestBody UpdateVideoCommentDto comment) {
+    public ResponseEntity<VideoCommentDto> updateComment(@RequestBody VideoCommentUpdateDto comment) {
         return new ResponseEntity<>(videoCommentService.updateComment(comment), HttpStatus.OK);
     }
 

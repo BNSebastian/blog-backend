@@ -1,6 +1,6 @@
-package freevoice.features.repositories;
+package freevoice.features.chat.persistence;
 
-import freevoice.features.models.ChatComment;
+import freevoice.features.chat.models.ChatComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

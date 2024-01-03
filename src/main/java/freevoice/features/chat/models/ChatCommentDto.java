@@ -1,6 +1,5 @@
-package freevoice.features.models.dtos;
+package freevoice.features.chat.models;
 
-import freevoice.features.models.ChatComment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

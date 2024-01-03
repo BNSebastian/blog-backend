@@ -1,12 +1,10 @@
-package freevoice.features.models.dtos;
+package freevoice.features.videos.models;
 
-import freevoice.features.models.VideoComment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Data // lombok

@@ -1,6 +1,5 @@
-package freevoice.features.models.dtos;
+package freevoice.features.videos.models;
 
-import freevoice.features.models.Video;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

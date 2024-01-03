@@ -1,6 +1,6 @@
-package freevoice.features.controllers;
+package freevoice.features.videos.controllers;
 
-import freevoice.features.services.VideoService;
+import freevoice.features.videos.persistence.VideoService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;

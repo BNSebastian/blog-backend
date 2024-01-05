@@ -2,7 +2,7 @@ package freevoice.features.videos.controllers;
 
 import freevoice.features.videos.models.VideoCommentUpdateDto;
 import freevoice.features.videos.models.VideoCommentDto;
-import freevoice.features.videos.persistence.VideoCommentService;
+import freevoice.features.videos.services.VideoCommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

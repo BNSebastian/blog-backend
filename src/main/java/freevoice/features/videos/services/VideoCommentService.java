@@ -1,4 +1,4 @@
-package freevoice.features.videos.persistence;
+package freevoice.features.videos.services;
 
 import freevoice.features.videos.models.VideoCommentUpdateDto;
 import freevoice.features.videos.models.VideoCommentDto;

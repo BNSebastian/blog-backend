@@ -1,4 +1,4 @@
-package freevoice.features.videos.persistence;
+package freevoice.features.videos.services;
 
 import freevoice.core.user.UserEntity;
 import freevoice.core.user.UserRepository;
@@ -8,6 +8,8 @@ import freevoice.features.videos.models.Video;
 import freevoice.features.videos.models.VideoComment;
 import freevoice.features.videos.models.VideoCommentUpdateDto;
 import freevoice.features.videos.models.VideoCommentDto;
+import freevoice.features.videos.repository.VideoCommentRepository;
+import freevoice.features.videos.repository.VideoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

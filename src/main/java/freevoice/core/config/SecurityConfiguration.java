@@ -18,6 +18,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -40,18 +42,29 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> {
+
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/auth/**")).permitAll();
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**")).permitAll();
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/videoComment/**")).authenticated();
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/chat/**")).authenticated();
             //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");
+
+            // websocket
+            //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/ws/**")).permitAll();
         });
 
         http.csrf(AbstractHttpConfigurer::disable);
-        http.cors(Customizer.withDefaults()); // by default uses a bean named corsConfigurationSource
+        http.cors(withDefaults()); // by default uses a bean named corsConfigurationSource
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authenticationProvider(authenticationProvider);
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+//        // Adding a custom security filter for WebSocket connections
+//        http.headers(headers -> {
+//            headers.cacheControl(withDefaults()).disable();
+//            headers.frameOptions(withDefaults()).disable();
+//        });
+
         return http.build();
     }
 }

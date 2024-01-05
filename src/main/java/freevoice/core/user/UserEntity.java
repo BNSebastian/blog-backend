@@ -1,6 +1,8 @@
 package freevoice.core.user;
 
 import freevoice.features.chat.models.ChatComment;
+import freevoice.features.forum.models.ForumComment;
+import freevoice.features.forum.models.ForumPost;
 import freevoice.features.videos.models.VideoComment;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,6 +43,12 @@ public class UserEntity implements UserDetails {
 
     @OneToMany(cascade=ALL, mappedBy = "user")
     public List<ChatComment> chatComments;
+
+    @OneToMany(cascade=ALL, mappedBy = "userEntity")
+    public List<ForumPost> forumPosts;
+
+    @OneToMany(cascade=ALL, mappedBy = "userEntity")
+    public List<ForumComment> forumComments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

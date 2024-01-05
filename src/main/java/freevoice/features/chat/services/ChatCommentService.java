@@ -1,4 +1,4 @@
-package freevoice.features.chat.persistence;
+package freevoice.features.chat.services;
 
 import freevoice.features.chat.models.ChatCommentDto;
 import freevoice.features.chat.models.ChatCommentCreateDto;

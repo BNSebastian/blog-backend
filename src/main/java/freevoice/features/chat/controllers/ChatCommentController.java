@@ -2,7 +2,7 @@ package freevoice.features.chat.controllers;
 
 import freevoice.features.chat.models.ChatCommentDto;
 import freevoice.features.chat.models.ChatCommentCreateDto;
-import freevoice.features.chat.persistence.ChatCommentService;
+import freevoice.features.chat.services.ChatCommentService;
 import freevoice.shared.URLS;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

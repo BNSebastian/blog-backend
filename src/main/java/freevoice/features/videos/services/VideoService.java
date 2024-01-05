@@ -1,4 +1,4 @@
-package freevoice.features.videos.persistence;
+package freevoice.features.videos.services;
 
 import freevoice.features.videos.models.Video;
 import org.springframework.web.multipart.MultipartFile;

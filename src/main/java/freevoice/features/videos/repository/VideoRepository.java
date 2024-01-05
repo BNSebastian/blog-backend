@@ -1,4 +1,4 @@
-package freevoice.features.videos.persistence;
+package freevoice.features.videos.repository;
 
 import freevoice.features.videos.models.Video;
 import jakarta.transaction.Transactional;

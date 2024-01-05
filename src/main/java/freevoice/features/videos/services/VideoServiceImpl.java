@@ -1,7 +1,8 @@
-package freevoice.features.videos.persistence;
+package freevoice.features.videos.services;
 
 import freevoice.features.videos.exceptions.VideoAlreadyExistsException;
 import freevoice.features.videos.models.Video;
+import freevoice.features.videos.repository.VideoRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

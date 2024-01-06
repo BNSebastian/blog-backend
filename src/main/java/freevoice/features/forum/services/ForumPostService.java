@@ -7,7 +7,7 @@ import freevoice.features.forum.models.ForumPostDto;
 import java.util.List;
 
 public interface ForumPostService {
-    ForumPostDto create(ForumPostCreateDto forumPost, ForumCommentCreateDto initialComment);
+    ForumPostDto create(ForumPostCreateDto forumPost);
     ForumPostDto getById(Long postId);
     List<ForumPostDto> getAll();
     void deletePost(Long postId, String userEmail) throws Exception;

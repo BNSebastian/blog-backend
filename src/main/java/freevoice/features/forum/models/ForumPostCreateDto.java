@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class ForumPostCreateDto {
     private String name;
     private String userEmail;
+    private ForumCommentCreateDto initialComment;
 }

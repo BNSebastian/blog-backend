@@ -26,10 +26,7 @@ public class ForumPostServiceImpl implements ForumPostService {
     private UserRepository userRepository;
 
     @Override
-    public ForumPostDto create(
-            ForumPostCreateDto forumPost,
-            ForumCommentCreateDto initialComment
-    ) {
+    public ForumPostDto create(ForumPostCreateDto forumPost) {
         UserEntity user = userRepository.findByEmail(forumPost.getUserEmail())
                 .orElseThrow();
 
@@ -43,7 +40,7 @@ public class ForumPostServiceImpl implements ForumPostService {
 
         ForumComment firstComment = ForumComment.builder()
                 .post(savedPost)
-                .content(initialComment.getContent())
+                .content(forumPost.getInitialComment().getContent())
                 .userEntity(user)
                 .createdOn(LocalDateTime.now())
                 .build();

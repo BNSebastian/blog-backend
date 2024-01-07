@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -32,4 +33,8 @@ public class ForumComment {
     private UserEntity userEntity;
 
     private LocalDateTime createdOn;
+
+    private List<String> likes;
+
+    private List<String> dislikes;
 }

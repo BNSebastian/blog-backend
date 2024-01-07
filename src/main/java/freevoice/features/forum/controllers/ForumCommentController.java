@@ -29,6 +29,7 @@ public class ForumCommentController {
     @GetMapping(URLS.getAllForumComments)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ForumCommentDto>> getAll(@PathVariable Long id) {
+        System.out.println("pathvariable " + id);
         return new ResponseEntity<>(commentService.getAllByPostId(id), HttpStatus.OK);
     }
 
@@ -38,5 +39,17 @@ public class ForumCommentController {
         commentService.delete(comment);
         String message = "Successfully deleted the comment with id: " + comment.getId();
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @PostMapping(URLS.likeForumComment)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Long> like(@PathVariable Long id, @RequestBody String userEmail) {
+        return new ResponseEntity<>(commentService.likeComment(id, userEmail), HttpStatus.OK);
+    }
+
+    @PostMapping(URLS.dislikeForumComment)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Long> dislike(@PathVariable Long id, @RequestBody String userEmail) {
+        return new ResponseEntity<>(commentService.dislikeComment(id, userEmail), HttpStatus.OK);
     }
 }

@@ -23,27 +23,30 @@ public class ForumPostController {
 
     @PostMapping(URLS.createForumPost)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ForumPostDto> createPost(
-            @RequestBody ForumPostCreateDto post,
-            @RequestBody ForumCommentCreateDto comment
-    ) {
-        return new ResponseEntity<>(postService.create(post, comment), HttpStatus.OK);
+    public ResponseEntity<ForumPostDto> create(@RequestBody ForumPostCreateDto post) {
+        return new ResponseEntity<>(postService.create(post), HttpStatus.OK);
     }
 
     @GetMapping(URLS.getAllForumPosts)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<ForumPostDto>> getAllPosts() {
+    public ResponseEntity<List<ForumPostDto>> getAll() {
         return new ResponseEntity<>(postService.getAll(), HttpStatus.OK);
+    }
+
+    @GetMapping(URLS.getForumPostById)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ForumPostDto> getById(@PathVariable Long id) {
+        return new ResponseEntity<>(postService.getById(id), HttpStatus.OK);
     }
 
     @DeleteMapping(URLS.deleteForumPost)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> deleteComment(
-            @PathVariable Long postId,
+    public ResponseEntity<String> delete(
+            @PathVariable Long id,
             @RequestBody String userEmail
     ) throws Exception {
-        postService.deletePost(postId, userEmail);
-        String message = "Successfully deleted the comment with id: " + postId;
+        postService.deletePost(id, userEmail);
+        String message = "Successfully deleted the comment with id: " + id;
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

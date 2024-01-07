@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +57,7 @@ public class ForumCommentServiceImpl implements ForumCommentService {
 
     @Override
     public List<ForumCommentDto> getAllByPostId(Long postId) {
+        System.out.println(postId);
         ForumPost foundPost = postRepository.findById(postId).orElseThrow();
         List<ForumComment> comments = foundPost.getComments();
         return comments.stream()
@@ -74,5 +76,47 @@ public class ForumCommentServiceImpl implements ForumCommentService {
         }
 
         commentRepository.delete(foundComment);
+    }
+
+    @Override
+    public Long likeComment(Long id, String userEmail) {
+        ForumComment foundComment = commentRepository
+                .findById(id)
+                .orElseThrow();
+
+        List<String> likes = foundComment.getLikes();
+
+        if (likes == null) {
+            likes = new ArrayList<>();
+        }
+
+        if (!likes.contains(userEmail)) {
+            likes.add(userEmail);
+            foundComment.setLikes(likes);
+            commentRepository.save(foundComment);
+        }
+
+        return (long) likes.size();
+    }
+
+    @Override
+    public Long dislikeComment(Long id, String userEmail) {
+        ForumComment foundComment = commentRepository
+                .findById(id)
+                .orElseThrow();
+
+        List<String> dislikes = foundComment.getDislikes();
+
+        if (dislikes == null) {
+            dislikes = new ArrayList<>();
+        }
+
+        if (!dislikes.contains(userEmail)) {
+            dislikes.add(userEmail);
+            foundComment.setDislikes(dislikes);
+            commentRepository.save(foundComment);
+        }
+
+        return (long) dislikes.size();
     }
 }

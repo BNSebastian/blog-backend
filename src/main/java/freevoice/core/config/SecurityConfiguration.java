@@ -46,7 +46,7 @@ public class SecurityConfiguration {
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/auth/**")).permitAll();
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**")).permitAll();
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/videoComment/**")).authenticated();
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumPost/**")).authenticated();
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumPost/**")).permitAll();
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumComment/**")).authenticated();
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/chat/**")).authenticated();
             //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");

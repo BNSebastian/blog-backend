@@ -10,4 +10,6 @@ public interface ForumCommentService {
     ForumCommentDto getById(Long commentId);
     List<ForumCommentDto> getAllByPostId(Long postId);
     void delete(ForumCommentDto comment) throws Exception;
+    Long likeComment(Long id, String userEmail);
+    Long dislikeComment(Long id, String userEmail);
 }

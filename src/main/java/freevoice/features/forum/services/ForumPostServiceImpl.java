@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.Collection;
 
 @Service
 @AllArgsConstructor
@@ -40,16 +43,16 @@ public class ForumPostServiceImpl implements ForumPostService {
 
         ForumComment firstComment = ForumComment.builder()
                 .post(savedPost)
-                .content(forumPost.getInitialComment().getContent())
+                .content(forumPost.getInitialCommentContent())
                 .userEntity(user)
                 .createdOn(LocalDateTime.now())
                 .build();
 
         ForumComment savedComment = commentRepository.save(firstComment);
 
-        List<ForumComment> existingComments = savedPost.getComments();
-        existingComments.add(savedComment);
-        savedPost.setComments(existingComments);
+//        List<ForumComment> singleCommentList = Collections.singletonList(savedComment);
+//
+//        savedPost.setComments(singleCommentList);
 
         ForumPost savedPostWithInitialComment = postRepository.save(savedPost);
 

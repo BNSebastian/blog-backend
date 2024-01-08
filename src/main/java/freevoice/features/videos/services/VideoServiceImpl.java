@@ -28,6 +28,15 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public Video uploadVideo(MultipartFile file, String name) throws IOException {
+        if (videoRepository.existsByName(name)) {
+            throw new VideoAlreadyExistsException();
+        }
+        Video newVid = new Video(name, file.getBytes());
+        return videoRepository.save(newVid);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Video getVideo(String name) {
         return videoRepository.findByName(name).orElseThrow();

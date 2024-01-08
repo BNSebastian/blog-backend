@@ -1,6 +1,12 @@
 package freevoice.shared;
 
 public class URLS {
+    // VIDEOS
+    public static final String video = "api/video";
+    public static final String uploadVideos = "/upload";
+    public static final String getAllVideoNames = "/all";
+    public static final String getVideoByName = "/{name}";
+
     // LIVE CHAT
     public static final String chat = "api/chat";
     public static final String createChatComment = "/createComment";

@@ -44,6 +44,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(auth -> {
 
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/auth/**")).permitAll();
+            // TODO: ADJUST FOR VIDEO UPLOAD
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**")).permitAll();
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/videoComment/**")).authenticated();
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumPost/**")).permitAll();

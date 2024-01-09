@@ -2,6 +2,7 @@ package freevoice.features.videos.services;
 
 import freevoice.features.videos.exceptions.VideoAlreadyExistsException;
 import freevoice.features.videos.models.Video;
+import freevoice.features.videos.models.VideoDto;
 import freevoice.features.videos.repository.VideoRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -19,15 +21,6 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     @Transactional
-    public void saveVideo(MultipartFile file, String name) throws IOException {
-        if (videoRepository.existsByName(name)) {
-            throw new VideoAlreadyExistsException();
-        }
-        Video newVid = new Video(name, file.getBytes());
-        videoRepository.save(newVid);
-    }
-
-    @Override
     public Video uploadVideo(MultipartFile file, String name) throws IOException {
         if (videoRepository.existsByName(name)) {
             throw new VideoAlreadyExistsException();
@@ -48,5 +41,24 @@ public class VideoServiceImpl implements VideoService {
         return videoRepository.getAllEntryNames();
     }
 
+    @Override
+    public String setVideoDescription(String videoName, String description) {
+        Video foundVideo = videoRepository.findByName(videoName).orElseThrow();
+        foundVideo.setDescription(description);
+        videoRepository.save(foundVideo);
+        return description;
+    }
 
+    @Override
+    public String getVideoDescription(String videoName) {
+        Video foundVideo = videoRepository.findByName(videoName).orElseThrow();
+        return foundVideo.getDescription();
+    }
+
+    @Override
+    public boolean deleteVideo(String videoName) {
+        Video foundVideo = videoRepository.findByName(videoName).orElseThrow();
+        videoRepository.delete(foundVideo);
+        return true;
+    }
 }

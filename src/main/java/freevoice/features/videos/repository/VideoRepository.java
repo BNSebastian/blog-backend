@@ -12,9 +12,7 @@ import java.util.Optional;
 @Transactional
 public interface VideoRepository extends JpaRepository<Video, Long> {
     Optional<Video> findByName(String name);
-
     boolean existsByName(String name);
-
     @Query(nativeQuery = true, value="SELECT name FROM video")
     List<String> getAllEntryNames();
 }

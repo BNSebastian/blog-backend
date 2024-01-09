@@ -92,10 +92,12 @@ public class ForumCommentServiceImpl implements ForumCommentService {
 
         if (!likes.contains(userEmail)) {
             likes.add(userEmail);
-            foundComment.setLikes(likes);
-            commentRepository.save(foundComment);
+        } else {
+            likes.remove(userEmail);
         }
 
+        foundComment.setLikes(likes);
+        commentRepository.save(foundComment);
         return (long) likes.size();
     }
 
@@ -113,10 +115,12 @@ public class ForumCommentServiceImpl implements ForumCommentService {
 
         if (!dislikes.contains(userEmail)) {
             dislikes.add(userEmail);
-            foundComment.setDislikes(dislikes);
-            commentRepository.save(foundComment);
+        } else {
+            dislikes.remove(userEmail);
         }
 
+        foundComment.setDislikes(dislikes);
+        commentRepository.save(foundComment);
         return (long) dislikes.size();
     }
 }

@@ -16,6 +16,7 @@ public class VideoCommentDto {
     private Long parentId;
     private String videoName;
     private String userEmail;
+    private byte[] profileImage;
     private String content;
     private String createdOn;
 
@@ -26,6 +27,7 @@ public class VideoCommentDto {
                 .parentId(videoComment.getParentId())
                 .videoName(videoComment.getVideo().getName())
                 .userEmail(videoComment.getUser().getEmail())
+                .profileImage(videoComment.getUser().getProfileImage())
                 .content(videoComment.getContent())
                 .createdOn(videoComment.getCreatedOn().format(formatter))
                 .build();

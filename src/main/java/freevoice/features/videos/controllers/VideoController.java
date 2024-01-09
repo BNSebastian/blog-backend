@@ -1,6 +1,7 @@
 package freevoice.features.videos.controllers;
 
 import freevoice.features.videos.models.Video;
+import freevoice.features.videos.models.VideoDto;
 import freevoice.features.videos.services.VideoService;
 import freevoice.shared.URLS;
 import lombok.AllArgsConstructor;
@@ -23,17 +24,8 @@ import java.util.Objects;
 public class VideoController {
     private VideoService videoService;
 
-//    @PostMapping()
-//    public ResponseEntity<String> saveVideo(
-//            @RequestParam("file") MultipartFile file,
-//            @RequestParam("name") String name
-//    ) throws IOException {
-//        videoService.saveVideo(file, name);
-//        return ResponseEntity.ok("Video saved successfully.");
-//    }
-
     @PostMapping(URLS.uploadVideos)
-    public ResponseEntity<List<String>> uploadFiles(@RequestParam("files") List<MultipartFile> multipartFiles) throws IOException {
+    public ResponseEntity<List<String>> uploadVideos(@RequestParam("files") List<MultipartFile> multipartFiles) throws IOException {
         List<String> uploadedFiles = new ArrayList<>();
         for(MultipartFile file : multipartFiles) {
             String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
@@ -43,9 +35,8 @@ public class VideoController {
         return new ResponseEntity<>(uploadedFiles, HttpStatus.OK);
     }
 
-
-    @GetMapping(URLS.getVideoByName)
-    public ResponseEntity<ByteArrayResource> getVideoByName(@PathVariable("name") String name){
+    @GetMapping(URLS.playVideo)
+    public ResponseEntity<ByteArrayResource> playVideo(@PathVariable("name") String name){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
@@ -55,5 +46,23 @@ public class VideoController {
     @GetMapping(URLS.getAllVideoNames)
     public ResponseEntity<List<String>> getAllVideoNames(){
         return ResponseEntity.ok(videoService.getAllVideoNames());
+    }
+
+    @PostMapping(URLS.setDescription)
+    public ResponseEntity<String> setDescription(
+            @PathVariable("name") String name,
+            @RequestBody String description
+    ){
+        return new ResponseEntity<>(videoService.setVideoDescription(name, description), HttpStatus.OK);
+    }
+
+    @GetMapping(URLS.getDescription)
+    public ResponseEntity<String> getDescription(@PathVariable("name") String name){
+        return new ResponseEntity<>(videoService.getVideoDescription(name), HttpStatus.OK);
+    }
+
+    @DeleteMapping(URLS.deleteVideo)
+    public ResponseEntity<Boolean> deleteVideo(@PathVariable("name") String name){
+        return new ResponseEntity<>(videoService.deleteVideo(name), HttpStatus.OK);
     }
 }

@@ -24,6 +24,9 @@ public class Video{
     @Column(unique = true)
     private String name;
 
+    @Column(length = 4000)
+    private String description;
+
     @Lob
     private byte[] data;
 

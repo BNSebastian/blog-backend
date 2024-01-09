@@ -1,5 +1,8 @@
 package freevoice.core.user;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -10,5 +13,5 @@ public interface UserService {
     Optional<List<UserEntity>> getAll();     // mine
     Boolean checkIfAdmin(Long id);    // mine
     void changePassword(ChangePasswordRequest request, Principal connectedUser);
-
+    UserEntity uploadProfileImage(UserEntity userEntity, MultipartFile file) throws IOException;
 }

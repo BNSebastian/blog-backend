@@ -3,7 +3,9 @@ package freevoice.core.user;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +46,7 @@ public class UserServiceImpl implements UserService {
         return role.equals("ADMIN");
     }
 
+    @Override
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
 
         var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
@@ -63,4 +66,13 @@ public class UserServiceImpl implements UserService {
         // save the new password
         userRepository.save(user);
     }
+
+    @Override
+    public UserEntity uploadProfileImage(UserEntity userEntity, MultipartFile file) throws IOException {
+        UserEntity foundUser = userRepository.findById(userEntity.getId()).orElseThrow();
+        foundUser.setProfileImage(file.getBytes());
+        return userRepository.save(foundUser);
+    }
+
+
 }

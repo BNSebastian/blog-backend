@@ -4,8 +4,11 @@ public class URLS {
     // VIDEOS
     public static final String video = "api/video";
     public static final String uploadVideos = "/upload";
+    public static final String deleteVideo = "/delete/{name}";
+    public static final String playVideo = "/play/{name}";
     public static final String getAllVideoNames = "/all";
-    public static final String getVideoByName = "/{name}";
+    public static final String setDescription = "/setDescription/{name}";
+    public static final String getDescription = "/getDescription/{name}";
 
     // LIVE CHAT
     public static final String chat = "api/chat";

@@ -39,5 +39,4 @@ public class AuthenticationController {
         jwtService.isTokenValid(authToken, user);
         return ResponseEntity.ok(jwtService.extractUsername(authToken));
     }
-
 }

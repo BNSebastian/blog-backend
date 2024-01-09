@@ -30,6 +30,21 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public Video changeVideo(MultipartFile file, String name) throws IOException {
+        Video foundVideo = videoRepository.findByName(name).orElseThrow();
+        foundVideo.setData(file.getBytes());
+        return videoRepository.save(foundVideo);
+    }
+
+    @Override
+    public String changeVideoName(String videoName, String newName) {
+        Video foundVideo = videoRepository.findByName(videoName).orElseThrow();
+        foundVideo.setName(newName);
+        Video savedVideo = videoRepository.save(foundVideo);
+        return savedVideo.getName();
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Video getVideo(String name) {
         return videoRepository.findByName(name).orElseThrow();
@@ -42,6 +57,17 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public List<VideoDto> getAllVideos() {
+        return videoRepository.findAll().stream().map(VideoDto::mapToDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public VideoDto getVideoDto(String name) {
+        Video foundVideo = videoRepository.findByName(name).orElseThrow();
+        return VideoDto.mapToDto(foundVideo);
+    }
+
+    @Override
     public String setVideoDescription(String videoName, String description) {
         Video foundVideo = videoRepository.findByName(videoName).orElseThrow();
         foundVideo.setDescription(description);
@@ -51,8 +77,7 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public String getVideoDescription(String videoName) {
-        Video foundVideo = videoRepository.findByName(videoName).orElseThrow();
-        return foundVideo.getDescription();
+        return videoRepository.getVideoDescriptionByName(videoName);
     }
 
     @Override

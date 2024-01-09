@@ -1,5 +1,6 @@
 package freevoice.features.videos.controllers;
 
+import freevoice.features.videos.models.ChangeVideoNameRequest;
 import freevoice.features.videos.models.Video;
 import freevoice.features.videos.models.VideoDto;
 import freevoice.features.videos.services.VideoService;
@@ -35,6 +36,18 @@ public class VideoController {
         return new ResponseEntity<>(uploadedFiles, HttpStatus.OK);
     }
 
+    @PostMapping(URLS.changeVideo)
+    public ResponseEntity<VideoDto> changeVideo(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+        String filename = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        Video savedVideo = videoService.changeVideo(multipartFile, filename);
+        return new ResponseEntity<>(VideoDto.mapToDto(savedVideo), HttpStatus.OK);
+    }
+
+    @PostMapping(URLS.changeVideoName)
+    public ResponseEntity<String> changeVideoName(@RequestBody ChangeVideoNameRequest request) {
+        return new ResponseEntity<>(videoService.changeVideoName(request.getOldName(), request.getNewName()), HttpStatus.OK);
+    }
+
     @GetMapping(URLS.playVideo)
     public ResponseEntity<ByteArrayResource> playVideo(@PathVariable("name") String name){
         return ResponseEntity
@@ -48,7 +61,17 @@ public class VideoController {
         return ResponseEntity.ok(videoService.getAllVideoNames());
     }
 
-    @PostMapping(URLS.setDescription)
+    @GetMapping(URLS.getAllVideos)
+    public ResponseEntity<List<VideoDto>> getAllVideos(){
+        return new ResponseEntity<>(videoService.getAllVideos(), HttpStatus.OK);
+    }
+
+    @GetMapping(URLS.getVideoByName)
+    public ResponseEntity<VideoDto> getVideoByName(@PathVariable("name") String videoName){
+        return new ResponseEntity<>(videoService.getVideoDto(videoName), HttpStatus.OK);
+    }
+
+    @PostMapping(URLS.setVideoDescription)
     public ResponseEntity<String> setDescription(
             @PathVariable("name") String name,
             @RequestBody String description
@@ -56,7 +79,7 @@ public class VideoController {
         return new ResponseEntity<>(videoService.setVideoDescription(name, description), HttpStatus.OK);
     }
 
-    @GetMapping(URLS.getDescription)
+    @GetMapping(URLS.getVideoDescription)
     public ResponseEntity<String> getDescription(@PathVariable("name") String name){
         return new ResponseEntity<>(videoService.getVideoDescription(name), HttpStatus.OK);
     }

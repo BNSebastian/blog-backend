@@ -4,11 +4,15 @@ public class URLS {
     // VIDEOS
     public static final String video = "api/video";
     public static final String uploadVideos = "/upload";
+    public static final String changeVideo = "/changeVideo/{name}";
+    public static final String changeVideoName = "/changeName/{name}";
     public static final String deleteVideo = "/delete/{name}";
     public static final String playVideo = "/play/{name}";
-    public static final String getAllVideoNames = "/all";
-    public static final String setDescription = "/setDescription/{name}";
-    public static final String getDescription = "/getDescription/{name}";
+    public static final String getAllVideoNames = "/getAllNames";
+    public static final String getAllVideos = "/getAll";
+    public static final String getVideoByName = "/getByName/{name}";
+    public static final String setVideoDescription = "/setDescription/{name}";
+    public static final String getVideoDescription = "/getDescription/{name}";
 
     // LIVE CHAT
     public static final String chat = "api/chat";

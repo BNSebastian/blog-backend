@@ -5,6 +5,7 @@ import freevoice.core.user.Role;
 import freevoice.core.user.UserEntity;
 import freevoice.core.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,6 +42,7 @@ public class AuthenticationService {
                                      .email(user.getEmail())
                                      .firstname(user.getFirstname())
                                      .lastname(user.getLastname())
+                                     //.profileImage(new ByteArrayResource(user.getProfileImage()))
                                      .token(jwtToken)
                                      .build();
     }
@@ -63,6 +65,7 @@ public class AuthenticationService {
                                      .email(user.getEmail())
                                      .firstname(user.getFirstname())
                                      .lastname(user.getLastname())
+                                     //.profileImage(new ByteArrayResource(user.getProfileImage()))
                                      .token(jwtToken)
                                      .build();
     }

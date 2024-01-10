@@ -1,6 +1,12 @@
 package freevoice.shared;
 
 public class URLS {
+    /* USER AND AUTH
+     ********************************/
+    public static final String user = "api/user";
+    public static final String setUserProfileImage = "/setProfileImage/{userId}";
+    public static final String getUserProfileImage = "/getProfileImage/{userId}";
+
     // VIDEOS
     public static final String video = "api/video";
     public static final String uploadVideos = "/upload";

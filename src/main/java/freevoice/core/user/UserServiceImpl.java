@@ -1,5 +1,6 @@
 package freevoice.core.user;
 
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -68,10 +69,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity uploadProfileImage(UserEntity userEntity, MultipartFile file) throws IOException {
-        UserEntity foundUser = userRepository.findById(userEntity.getId()).orElseThrow();
+    public boolean setProfileImage(Long userId, MultipartFile file) throws IOException {
+        UserEntity foundUser = userRepository.findById(userId).orElseThrow();
         foundUser.setProfileImage(file.getBytes());
-        return userRepository.save(foundUser);
+        UserEntity savedUser = userRepository.save(foundUser);
+        return true;
+    }
+
+    @Override
+    public ByteArrayResource getProfileImage(Long userId) {
+        UserEntity foundUser = userRepository.findById(userId).orElseThrow();
+        return new ByteArrayResource(foundUser.getProfileImage());
     }
 
 

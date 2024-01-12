@@ -1,11 +1,15 @@
-package freevoice.shared;
+package freevoice.shared.constants;
 
 public class URLS {
     /* USER AND AUTH
      ********************************/
     public static final String user = "api/user";
+
+    /* FILES
+     ********************************/
+    public static final String image = "api/image";
     public static final String setUserProfileImage = "/setProfileImage/{userId}";
-    public static final String getUserProfileImage = "/getProfileImage/{userId}";
+    public static final String getUserProfileImage = "/getProfileImage/{userEmail}";
 
     // VIDEOS
     public static final String video = "api/video";

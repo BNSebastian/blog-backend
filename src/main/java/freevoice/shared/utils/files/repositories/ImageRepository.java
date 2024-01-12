@@ -1,13 +1,11 @@
-package freevoice.core.user;
+package freevoice.shared.utils.files.repositories;
 
+import freevoice.shared.utils.files.entities.Image;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 //@Transactional
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    Optional<UserEntity> findByEmail(String email);
+public interface ImageRepository extends JpaRepository<Image, Long>{
 }

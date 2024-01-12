@@ -4,7 +4,7 @@ import freevoice.features.videos.models.ChangeVideoNameRequest;
 import freevoice.features.videos.models.Video;
 import freevoice.features.videos.models.VideoDto;
 import freevoice.features.videos.services.VideoService;
-import freevoice.shared.URLS;
+import freevoice.shared.constants.URLS;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;

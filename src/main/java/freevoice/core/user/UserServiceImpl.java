@@ -4,6 +4,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -67,20 +68,4 @@ public class UserServiceImpl implements UserService {
         // save the new password
         userRepository.save(user);
     }
-
-    @Override
-    public boolean setProfileImage(Long userId, MultipartFile file) throws IOException {
-        UserEntity foundUser = userRepository.findById(userId).orElseThrow();
-        foundUser.setProfileImage(file.getBytes());
-        UserEntity savedUser = userRepository.save(foundUser);
-        return true;
-    }
-
-    @Override
-    public ByteArrayResource getProfileImage(Long userId) {
-        UserEntity foundUser = userRepository.findById(userId).orElseThrow();
-        return new ByteArrayResource(foundUser.getProfileImage());
-    }
-
-
 }

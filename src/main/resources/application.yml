@@ -4,6 +4,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/freevoice
     username: merovingian
     password: postgres
+#    hikari: auto-commit
   jpa:
     hibernate:
       ddl-auto: create

@@ -42,7 +42,6 @@ public class AuthenticationService {
                                      .email(user.getEmail())
                                      .firstname(user.getFirstname())
                                      .lastname(user.getLastname())
-                                     //.profileImage(new ByteArrayResource(user.getProfileImage()))
                                      .token(jwtToken)
                                      .build();
     }

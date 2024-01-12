@@ -1,5 +1,6 @@
 package freevoice.core.config;
 
+import freevoice.shared.constants.URLS;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,14 +43,31 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> {
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/auth/**"))
+                .permitAll();
 
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/auth/**")).permitAll();
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/user/**"))
+                .permitAll();
+
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/image/**"))
+                .permitAll();
+
             // TODO: ADJUST FOR VIDEO UPLOAD
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**")).permitAll();
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/videoComment/**")).authenticated();
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumPost/**")).permitAll();
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumComment/**")).authenticated();
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/chat/**")).authenticated();
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**"))
+                .permitAll();
+
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/videoComment/**"))
+                .authenticated();
+
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumPost/**"))
+                .permitAll();
+
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumComment/**"))
+                .authenticated();
+
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/chat/**"))
+                .authenticated();
+
             //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");
 
             // websocket
@@ -57,9 +75,13 @@ public class SecurityConfiguration {
         });
 
         http.csrf(AbstractHttpConfigurer::disable);
+
         http.cors(withDefaults()); // by default uses a bean named corsConfigurationSource
+
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
         http.authenticationProvider(authenticationProvider);
+
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 //        // Adding a custom security filter for WebSocket connections

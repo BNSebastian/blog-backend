@@ -1,6 +1,6 @@
 package freevoice.core.config;
 
-import freevoice.shared.Constants;
+import freevoice.shared.constants.AUTH;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -36,7 +36,7 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(Constants.JWT_SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(AUTH.JWT_SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -49,7 +49,7 @@ public class JwtService {
                    .setClaims(extraClaims)
                    .setSubject(userDetails.getUsername())
                    .setIssuedAt(new Date(System.currentTimeMillis()))
-                   .setExpiration(new Date(System.currentTimeMillis() + Constants.JWT_EXPIRATION))
+                   .setExpiration(new Date(System.currentTimeMillis() + AUTH.JWT_EXPIRATION))
                    .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                    .compact();
     }

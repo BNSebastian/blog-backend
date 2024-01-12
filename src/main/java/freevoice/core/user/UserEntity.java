@@ -4,6 +4,7 @@ import freevoice.features.chat.models.ChatComment;
 import freevoice.features.forum.models.ForumComment;
 import freevoice.features.forum.models.ForumPost;
 import freevoice.features.videos.models.VideoComment;
+import freevoice.shared.utils.files.entities.Image;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,8 +39,9 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Lob
-    private byte[] profileImage;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image profileImage;
 
     @OneToMany(cascade=ALL, mappedBy = "user")
     public List<VideoComment> videoComments;

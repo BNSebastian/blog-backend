@@ -1,10 +1,9 @@
 package freevoice.features.forum.controllers;
 
-import freevoice.features.forum.models.ForumCommentCreateDto;
 import freevoice.features.forum.models.ForumPostCreateDto;
 import freevoice.features.forum.models.ForumPostDto;
 import freevoice.features.forum.services.ForumPostService;
-import freevoice.shared.URLS;
+import freevoice.shared.constants.URLS;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

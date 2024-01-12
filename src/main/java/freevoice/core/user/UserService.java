@@ -14,6 +14,4 @@ public interface UserService {
     Optional<List<UserEntity>> getAll();     // mine
     Boolean checkIfAdmin(Long id);    // mine
     void changePassword(ChangePasswordRequest request, Principal connectedUser);
-    boolean setProfileImage(Long userId, MultipartFile file) throws IOException;
-    ByteArrayResource getProfileImage(Long userId);
 }

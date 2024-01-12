@@ -1,4 +1,4 @@
-package freevoice.shared;
+package freevoice.shared.persistence;
 
 import freevoice.core.user.Role;
 import freevoice.core.user.UserEntity;

@@ -24,6 +24,14 @@ public class URLS {
     public static final String setVideoDescription = "/setDescription/{name}";
     public static final String getVideoDescription = "/getDescription/{name}";
 
+    // VIDEO COMMENTS
+    public static final String videoComment = "api/videoComment";
+    public static final String createVideoComment = "/createComment";
+    public static final String getVideoComment = "/getComment/{commentId}";
+    public static final String getAllVideoComments = "/getAllComments/{videoName}";
+    public static final String updateVideoComment = "/updateComment";
+    public static final String deleteVideoComment = "/deleteComment/{commentId}";
+
     // LIVE CHAT
     public static final String chat = "api/chat";
     public static final String createChatComment = "/createComment";

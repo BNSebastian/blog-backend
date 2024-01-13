@@ -3,6 +3,7 @@ package freevoice.shared.utils.files.services;
 import freevoice.core.user.UserEntity;
 import freevoice.core.user.UserRepository;
 import freevoice.shared.utils.files.entities.Image;
+import freevoice.shared.utils.files.exceptions.UserNotFoundException;
 import freevoice.shared.utils.files.repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -32,20 +33,26 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public boolean setProfileImage(Long userId, MultipartFile file) throws IOException {
-        UserEntity foundUser = userRepository.findById(userId).orElseThrow();
+        UserEntity foundUser = userRepository.findById(userId)
+                                             .orElseThrow();
         Image savedImage = saveImage(file);
-        foundUser.setProfileImage(savedImage);
+
+        foundUser.setProfileImageId(savedImage.getId());
+
         userRepository.save(foundUser);
+
         return true;
     }
 
     @Override
     @Transactional
     public ByteArrayResource getProfileImage(String userEmail) {
-        UserEntity foundUser = userRepository.findByEmail(userEmail).orElseThrow();
-        return new ByteArrayResource(imageRepository.findById(foundUser.getProfileImage()
-                                                                       .getId())
-                                                    .get()
-                                                    .getFile());
+        UserEntity foundUser = userRepository.findByEmail(userEmail)
+                                             .orElseThrow();
+
+        Image foundImage = imageRepository.findById(foundUser.getProfileImageId())
+                                          .orElseThrow(() -> new UserNotFoundException(userEmail));
+
+        return new ByteArrayResource(foundImage.getFile());
     }
 }

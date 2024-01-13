@@ -1,5 +1,11 @@
 spring:
   datasource:
+#    MYSQL
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/freevoice
+#    username: root
+#    password: mysql
+#    POSTGRES
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/freevoice
     username: merovingian

@@ -1,6 +1,5 @@
 package freevoice.shared.utils.files.entities;
 
-import freevoice.core.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,9 +19,7 @@ public class Image {
 
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    private Long userId;
 
     @Lob
     @Basic(fetch = FetchType.EAGER)

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-//@Transactional
+@Transactional
 public interface VideoRepository extends JpaRepository<Video, Long> {
     Optional<Video> findByName(String name);
     boolean existsByName(String name);

@@ -39,9 +39,7 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id", referencedColumnName = "id")
-    private Image profileImage;
+    private Long profileImageId;
 
     @OneToMany(cascade=ALL, mappedBy = "user")
     public List<VideoComment> videoComments;

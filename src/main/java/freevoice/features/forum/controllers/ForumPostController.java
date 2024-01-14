@@ -48,4 +48,28 @@ public class ForumPostController {
         String message = "Successfully deleted the comment with id: " + id;
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    @PostMapping(URLS.incrementPostViewCount)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Long> incrementViewCount(@PathVariable("postId") Long postId,
+                                                   @RequestBody String userEmail)
+    {
+        return new ResponseEntity<>(postService.incrementViewCount(postId, userEmail),
+                                    HttpStatus.OK);
+    }
+
+    @GetMapping(URLS.getPostViewCount)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Long> getViewCount(@PathVariable("postId") Long postId) {
+        return new ResponseEntity<>(postService.getViewCount(postId),
+                                    HttpStatus.OK);
+    }
+
+    @PostMapping(URLS.pinForumPost)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> pinPost(@PathVariable("postId") Long postId)
+    {
+        return new ResponseEntity<>(postService.pinPost(postId),
+                                    HttpStatus.OK);
+    }
 }

@@ -32,17 +32,17 @@ public class ForumCommentServiceImpl implements ForumCommentService {
     @Override
     public ForumCommentDto create(ForumCommentCreateDto forumComment) {
         UserEntity user = userRepository.findByEmail(forumComment.getUserEmail())
-                .orElseThrow();
+                                        .orElseThrow();
 
         ForumPost post = postRepository.findById(forumComment.getPostId())
-                .orElseThrow();
+                                       .orElseThrow();
 
         ForumComment newComment = ForumComment.builder()
-                .post(post)
-                .content(forumComment.getContent())
-                .userEntity(user)
-                .createdOn(LocalDateTime.now())
-                .build();
+                                              .post(post)
+                                              .content(forumComment.getContent())
+                                              .userEntity(user)
+                                              .createdOn(LocalDateTime.now())
+                                              .build();
 
         ForumComment savedComment = commentRepository.save(newComment);
 
@@ -61,8 +61,8 @@ public class ForumCommentServiceImpl implements ForumCommentService {
         ForumPost foundPost = postRepository.findById(postId).orElseThrow();
         List<ForumComment> comments = foundPost.getComments();
         return comments.stream()
-                .map(ForumCommentDto::mapToDto)
-                .collect(Collectors.toList());
+                       .map(ForumCommentDto::mapToDto)
+                       .collect(Collectors.toList());
     }
 
     @Override

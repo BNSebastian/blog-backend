@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -18,13 +16,23 @@ public class ForumPostDto {
     private String name;
     private String userEmail;
     private String createdOn;
+    private Long viewerCount;
+    private boolean pinned;
 
     public static ForumPostDto mapToDto(ForumPost forumPost) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yy");
+
+        long views = 0L;
+        if (forumPost.getViewerList() != null) {
+            views = forumPost.getViewerList().size();
+        }
+
         return ForumPostDto.builder()
                            .id(forumPost.getId())
                            .name(forumPost.getName())
                            .userEmail(forumPost.getUserEntity().getEmail())
+                           .viewerCount(views)
+                           .pinned(forumPost.isPinned())
                            .createdOn(forumPost.getCreatedOn().format(formatter))
                            .build();
     }

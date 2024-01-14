@@ -34,4 +34,8 @@ public class ForumPost {
 
     @OneToMany(cascade=ALL, mappedBy = "post")
     public List<ForumComment> comments;
+
+    private List<String> viewerList;
+
+    private boolean isPinned;
 }

@@ -37,4 +37,6 @@ public class ForumComment {
     private List<String> likes;
 
     private List<String> dislikes;
+
+
 }

@@ -6,6 +6,7 @@ import freevoice.features.videos.models.VideoDto;
 import freevoice.features.videos.services.VideoService;
 import freevoice.shared.constants.URLS;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

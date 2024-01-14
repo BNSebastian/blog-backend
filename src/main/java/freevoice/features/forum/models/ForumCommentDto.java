@@ -20,6 +20,7 @@ public class ForumCommentDto {
     private Long likes;
     private Long dislikes;
 
+
     public static ForumCommentDto mapToDto(ForumComment forumPost) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yy");
 

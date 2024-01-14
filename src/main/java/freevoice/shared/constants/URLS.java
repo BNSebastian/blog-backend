@@ -44,6 +44,9 @@ public class URLS {
     public static final String getForumPostById = "/getById/{id}";
     public static final String getAllForumPosts = "/getAll";
     public static final String deleteForumPost = "/delete/{id}";
+    public static final String incrementPostViewCount = "/incrementViewCount/{postId}";
+    public static final String getPostViewCount = "/getViewCount/{postId}";
+    public static final String pinForumPost = "/pinPost/{postId}";
 
     // FORUM COMMENT
     public static final String forumComment = "api/forumComment";

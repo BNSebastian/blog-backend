@@ -1,4 +1,4 @@
-package freevoice.features.chat.config;
+package freevoice.features.websocket;
 
 import freevoice.features.chat.models.ChatMessage;
 import freevoice.features.chat.models.MessageType;

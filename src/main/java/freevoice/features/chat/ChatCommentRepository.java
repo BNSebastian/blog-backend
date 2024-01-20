@@ -1,4 +1,4 @@
-package freevoice.features.chat.repositories;
+package freevoice.features.chat;
 
 import freevoice.features.chat.models.ChatComment;
 import org.springframework.data.jpa.repository.JpaRepository;

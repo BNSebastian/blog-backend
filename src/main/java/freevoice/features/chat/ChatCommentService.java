@@ -1,4 +1,4 @@
-package freevoice.features.chat.services;
+package freevoice.features.chat;
 
 import freevoice.features.chat.models.ChatCommentDto;
 import freevoice.features.chat.models.ChatCommentCreateDto;

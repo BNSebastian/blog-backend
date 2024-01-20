@@ -1,10 +1,9 @@
 package freevoice.core.user;
 
 import freevoice.features.chat.models.ChatComment;
-import freevoice.features.forum.models.ForumComment;
-import freevoice.features.forum.models.ForumPost;
-import freevoice.features.videos.models.VideoComment;
-import freevoice.shared.utils.files.entities.Image;
+import freevoice.features.forum.comments.models.ForumComment;
+import freevoice.features.forum.posts.models.ForumPost;
+import freevoice.features.videos.comments.models.VideoComment;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,17 +26,23 @@ public class UserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    private Boolean locked = false;
+
+    private Boolean enabled = true;
+
     private String firstname;
 
     private String lastname;
 
+    private String username;
+
     private String email;
 
     private String password;
-
-    @Getter
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     private Long profileImageId;
 
@@ -52,6 +57,25 @@ public class UserEntity implements UserDetails {
 
     @OneToMany(cascade=ALL, mappedBy = "userEntity")
     public List<ForumComment> forumComments;
+
+    public UserEntity(Role role,
+                      String firstname,
+                      String lastname,
+                      String username,
+                      String email,
+                      String password,
+                      Boolean locked,
+                      Boolean enabled)
+    {
+        this.role = role;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.locked = locked;
+        this.enabled = enabled;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -75,7 +99,7 @@ public class UserEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
@@ -85,7 +109,7 @@ public class UserEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 
 //    @OneToMany(cascade=ALL, mappedBy = "userEntity")

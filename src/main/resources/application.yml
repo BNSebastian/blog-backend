@@ -1,20 +1,15 @@
 spring:
   datasource:
-#    MYSQL
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/freevoice
-#    username: root
-#    password: mysql
-#    POSTGRES
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/freevoice
     username: merovingian
     password: postgres
-#    hikari: auto-commit
+
   jpa:
     hibernate:
       ddl-auto: create
     show-sql: true
+
   servlet:
     multipart:
       enabled: true
@@ -26,6 +21,21 @@ server:
   error:
     include-message: always
 
-constants:
-  filePath: Documents/projects/freevoice/videos
+  mail:
+    host: 172.17.0.3
+    port: 25
+    username: user01@james.local
+    password: 1234
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
+
 

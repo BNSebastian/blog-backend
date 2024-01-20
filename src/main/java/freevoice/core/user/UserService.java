@@ -1,6 +1,7 @@
 package freevoice.core.user;
 
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -14,4 +15,8 @@ public interface UserService {
     Optional<List<UserEntity>> getAll();     // mine
     Boolean checkIfAdmin(Long id);    // mine
     void changePassword(ChangePasswordRequest request, Principal connectedUser);
+
+    UserEntity loadUserByUsername(String email) throws UsernameNotFoundException;
+    String signUpUser(UserEntity appUser);
+    int enableAppUser(String email);
 }

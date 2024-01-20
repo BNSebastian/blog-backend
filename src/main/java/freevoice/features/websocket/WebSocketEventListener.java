@@ -1,7 +1,7 @@
 package freevoice.features.websocket;
 
-import freevoice.features.chat.models.ChatMessage;
-import freevoice.features.chat.models.MessageType;
+import freevoice.features.websocket.chat.models.ChatMessage;
+import freevoice.features.websocket.chat.models.MessageType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

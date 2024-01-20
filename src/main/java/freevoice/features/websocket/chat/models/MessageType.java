@@ -1,4 +1,4 @@
-package freevoice.features.chat.models;
+package freevoice.features.websocket.chat.models;
 
 public enum MessageType {
 

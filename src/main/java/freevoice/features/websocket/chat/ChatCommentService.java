@@ -1,7 +1,7 @@
-package freevoice.features.chat;
+package freevoice.features.websocket.chat;
 
-import freevoice.features.chat.models.ChatCommentDto;
-import freevoice.features.chat.models.ChatCommentCreateDto;
+import freevoice.features.websocket.chat.models.ChatCommentDto;
+import freevoice.features.websocket.chat.models.ChatCommentCreateDto;
 
 import java.util.List;
 

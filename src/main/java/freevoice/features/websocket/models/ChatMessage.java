@@ -1,5 +1,6 @@
-package freevoice.features.chat.models;
+package freevoice.features.websocket.models;
 
+import freevoice.features.websocket.chat.models.MessageType;
 import lombok.*;
 
 @Getter
@@ -8,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class ChatMessage {
+
     private MessageType type;
     private String content;
     private String sender;

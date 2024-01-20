@@ -1,4 +1,4 @@
-package freevoice.features.chat.models;
+package freevoice.features.websocket.chat.models;
 
 import freevoice.core.user.UserEntity;
 import jakarta.persistence.*;

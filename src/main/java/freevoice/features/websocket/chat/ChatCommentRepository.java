@@ -1,6 +1,6 @@
-package freevoice.features.chat;
+package freevoice.features.websocket.chat;
 
-import freevoice.features.chat.models.ChatComment;
+import freevoice.features.websocket.chat.models.ChatComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package freevoice.core.user;
 
-import freevoice.features.chat.models.ChatComment;
+import freevoice.features.websocket.chat.models.ChatComment;
 import freevoice.features.forum.comments.models.ForumComment;
 import freevoice.features.forum.posts.models.ForumPost;
 import freevoice.features.videos.comments.models.VideoComment;

@@ -1,10 +1,10 @@
-package freevoice.features.chat;
+package freevoice.features.websocket.chat;
 
 import freevoice.core.user.UserEntity;
 import freevoice.core.user.UserRepository;
-import freevoice.features.chat.models.ChatComment;
-import freevoice.features.chat.models.ChatCommentDto;
-import freevoice.features.chat.models.ChatCommentCreateDto;
+import freevoice.features.websocket.chat.models.ChatComment;
+import freevoice.features.websocket.chat.models.ChatCommentDto;
+import freevoice.features.websocket.chat.models.ChatCommentCreateDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

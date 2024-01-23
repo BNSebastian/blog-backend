@@ -1,7 +1,7 @@
-FROM openjdk:17-jdk-alpine
+FROM openjdk:21
 
 # create user to run app as (instead of root)
-RUN addgroup -S app && adduser -S app -G app
+# RUN addgroup -S app && adduser -S app -G app
 
 # use user "app"
 USER app

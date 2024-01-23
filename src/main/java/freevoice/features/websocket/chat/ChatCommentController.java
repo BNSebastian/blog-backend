@@ -17,7 +17,7 @@ import java.util.List;
 public class ChatCommentController {
 
     @Autowired
-    private ChatCommentService chatCommentService;
+    private  ChatCommentService chatCommentService;
 
     @PostMapping(URLS.createChatComment)
     @ResponseStatus(HttpStatus.OK)

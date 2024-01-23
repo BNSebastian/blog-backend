@@ -67,4 +67,7 @@ public class URLS {
     public static final String deleteForumComment = "/delete";
     public static final String likeForumComment = "/like/{id}";
     public static final String dislikeForumComment = "/dislike/{id}";
+
+    // ARTICLES
+    public static final String articles = "api/articles";
 }

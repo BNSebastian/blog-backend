@@ -70,4 +70,9 @@ public class URLS {
 
     // ARTICLES
     public static final String articles = "api/articles";
+    public static final String createArticle = "/create";
+    public static final String getAllArticles = "/getAll";
+    public static final String getArticleByName = "/getByName/{name}";
+    public static final String updateArticle = "/update";
+    public static final String deleteArticle = "/delete";
 }

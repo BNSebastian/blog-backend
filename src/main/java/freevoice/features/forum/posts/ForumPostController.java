@@ -31,6 +31,21 @@ public class ForumPostController {
         return new ResponseEntity<>(postService.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping(URLS.getForumPostsSize)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> getSize() {
+        return new ResponseEntity<>(postService.getSize(), HttpStatus.OK);
+    }
+
+    @GetMapping(URLS.getForumPostPage)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<ForumPostDto>> getPage(
+            @PathVariable("pageIndex") int pageIndex,
+            @PathVariable("pageSize") int pageSize
+    ) {
+        return new ResponseEntity<>(postService.getPage(pageIndex, pageSize), HttpStatus.OK);
+    }
+
     @GetMapping(URLS.getForumPostById)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ForumPostDto> getById(@PathVariable Long id) {

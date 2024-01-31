@@ -55,6 +55,8 @@ public class URLS {
     public static final String createForumPost = "/create";
     public static final String getForumPostById = "/getById/{id}";
     public static final String getAllForumPosts = "/getAll";
+    public static final String getForumPostsSize = "/getSize";
+    public static final String getForumPostPage = "/getPage/{pageIndex}/{pageSize}";
     public static final String deleteForumPost = "/delete/{id}";
     public static final String incrementPostViewCount = "/incrementViewCount/{postId}";
     public static final String getPostViewCount = "/getViewCount/{postId}";

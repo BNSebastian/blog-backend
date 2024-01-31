@@ -8,6 +8,7 @@ import freevoice.features.forum.posts.models.ForumPostCreateDto;
 import freevoice.features.forum.posts.models.ForumPostDto;
 import freevoice.features.forum.comments.ForumCommentRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class ForumPostServiceImpl implements ForumPostService {
@@ -71,6 +73,41 @@ public class ForumPostServiceImpl implements ForumPostService {
         return foundPosts.stream()
                          .map(ForumPostDto::mapToDto)
                          .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer getSize() {
+        return postRepository.findAll().size();
+    }
+
+    @Override
+    public List<ForumPostDto> getPage(int pageIndex, int pageSize) {
+       List<ForumPost> entries = postRepository.findAll();
+       int entrySize = entries.size();
+       int left = pageIndex * pageSize;
+       int right = left + pageSize;
+
+       if (entrySize == 0) {
+           log.warn("no entries present");
+           return null;
+       } else if (entrySize < left) {
+           log.warn("initial index is out of bounds");
+           return null;
+       }
+
+       if (entrySize < right) {
+           right = entrySize;
+       }
+
+       List<ForumPost> output = new ArrayList<>();
+       while (left < right) {
+           output.add(entries.get(left));
+           left++;
+       }
+        return output
+                .stream()
+                .map(ForumPostDto::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override

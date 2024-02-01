@@ -1,5 +1,6 @@
 package freevoice.shared.templates;
 
+import freevoice.shared.templates.exceptions.GenericNotFoundEx;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +26,10 @@ public class GenericService<T, ID> implements IGenericService<T, ID> {
     }
 
     @Override
-    public Optional<T> getById(ID id) {
-        return repository.findById(id);
+    public T getById(ID id) {
+        return repository
+                .findById(id)
+                .orElseThrow(() -> new GenericNotFoundEx("entry with id " + id + " not found"));
     }
 
     @Override

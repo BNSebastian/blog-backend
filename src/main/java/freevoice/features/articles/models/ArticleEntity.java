@@ -1,4 +1,4 @@
-package freevoice.features.blog.articles.models;
+package freevoice.features.articles.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;

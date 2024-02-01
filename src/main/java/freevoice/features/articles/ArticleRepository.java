@@ -1,6 +1,6 @@
-package freevoice.features.blog.articles;
+package freevoice.features.articles;
 
-import freevoice.features.blog.articles.models.ArticleEntity;
+import freevoice.features.articles.models.ArticleEntity;
 import freevoice.shared.templates.GenericRepository;
 import org.springframework.stereotype.Repository;
 

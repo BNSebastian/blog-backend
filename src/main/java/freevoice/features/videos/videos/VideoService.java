@@ -1,5 +1,6 @@
 package freevoice.features.videos.videos;
 
+import freevoice.features.forum.posts.models.ForumPostDto;
 import freevoice.features.videos.videos.models.Video;
 import freevoice.features.videos.videos.models.VideoDto;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,4 +19,6 @@ public interface VideoService {
     String setVideoDescription(String videoName, String description);
     String getVideoDescription(String videoName);
     boolean deleteVideo(String videoName);
+    Integer getSize();
+    List<String> getPage(int pageIndex, int pageSize);
 }

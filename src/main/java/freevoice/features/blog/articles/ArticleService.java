@@ -1,20 +1,15 @@
 package freevoice.features.blog.articles;
-
 import freevoice.features.blog.articles.models.ArticleEntity;
-import freevoice.shared.templates.DefaultService;
-import org.springframework.beans.factory.annotation.Autowired;
+import freevoice.shared.templates.GenericService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ArticleService extends DefaultService<ArticleEntity> implements IArticleService {
+public class ArticleService extends GenericService<ArticleEntity, Long> {
 
-    @Autowired
-    private IArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
 
-    @Override
-    public ArticleEntity getByName(String name) {
-        return articleRepository
-                .findByName(name)
-                .orElseThrow();
+    public ArticleService(ArticleRepository articleRepository) {
+        super(articleRepository);
+        this.articleRepository = articleRepository;
     }
 }

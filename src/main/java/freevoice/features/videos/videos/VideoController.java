@@ -1,5 +1,6 @@
 package freevoice.features.videos.videos;
 
+import freevoice.features.forum.posts.models.ForumPostDto;
 import freevoice.features.videos.videos.models.ChangeVideoNameRequest;
 import freevoice.features.videos.videos.models.Video;
 import freevoice.features.videos.videos.models.VideoDto;
@@ -58,6 +59,21 @@ public class VideoController {
     @GetMapping(URLS.getAllVideoNames)
     public ResponseEntity<List<String>> getAllVideoNames(){
         return ResponseEntity.ok(videoService.getAllVideoNames());
+    }
+
+    @GetMapping(URLS.getVideoNamesSize)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> getSize() {
+        return new ResponseEntity<>(videoService.getSize(), HttpStatus.OK);
+    }
+
+    @GetMapping(URLS.getVideoNamesPage)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<String>> getPage(
+            @PathVariable("pageIndex") int pageIndex,
+            @PathVariable("pageSize") int pageSize
+    ) {
+        return new ResponseEntity<>(videoService.getPage(pageIndex, pageSize), HttpStatus.OK);
     }
 
     @GetMapping(URLS.getAllVideos)

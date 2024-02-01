@@ -2,11 +2,11 @@ package freevoice.features.forum.posts;
 
 import freevoice.core.user.UserEntity;
 import freevoice.core.user.UserRepository;
+import freevoice.features.forum.comments.ForumCommentRepository;
 import freevoice.features.forum.comments.models.ForumComment;
 import freevoice.features.forum.posts.models.ForumPost;
 import freevoice.features.forum.posts.models.ForumPostCreateDto;
 import freevoice.features.forum.posts.models.ForumPostDto;
-import freevoice.features.forum.comments.ForumCommentRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,28 +82,44 @@ public class ForumPostServiceImpl implements ForumPostService {
 
     @Override
     public List<ForumPostDto> getPage(int pageIndex, int pageSize) {
-       List<ForumPost> entries = postRepository.findAll();
-       int entrySize = entries.size();
-       int left = pageIndex * pageSize;
-       int right = left + pageSize;
+        List<ForumPost> foundEntries = postRepository.findAll();
+        // class specific imp
+        List<ForumPost> entries = new ArrayList<>(
+                foundEntries
+                        .stream()
+                        .filter(ForumPost::isPinned)
+                        .toList()
+        );
 
-       if (entrySize == 0) {
-           log.warn("no entries present");
-           return null;
-       } else if (entrySize < left) {
-           log.warn("initial index is out of bounds");
-           return null;
-       }
+        List<ForumPost> unpinnedEntries = foundEntries
+                .stream()
+                .filter(e -> !e.isPinned())
+                .toList();
 
-       if (entrySize < right) {
-           right = entrySize;
-       }
+        entries.addAll(unpinnedEntries);
+        // end of class specific imp
 
-       List<ForumPost> output = new ArrayList<>();
-       while (left < right) {
-           output.add(entries.get(left));
-           left++;
-       }
+        int entrySize = entries.size();
+        int left = pageIndex * pageSize;
+        int right = left + pageSize;
+
+        if (entrySize == 0) {
+            log.warn("no entries present");
+            return null;
+        } else if (entrySize < left) {
+            log.warn("initial index is out of bounds");
+            return null;
+        }
+
+        if (entrySize < right) {
+            right = entrySize;
+        }
+
+        List<ForumPost> output = new ArrayList<>();
+        while (left < right) {
+            output.add(entries.get(left));
+            left++;
+        }
         return output
                 .stream()
                 .map(ForumPostDto::mapToDto)

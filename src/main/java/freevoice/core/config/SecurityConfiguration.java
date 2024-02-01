@@ -71,6 +71,9 @@ public class SecurityConfiguration {
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/paypal/**"))
                 .permitAll();
 
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/article/**"))
+                .permitAll();
+
             //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");
 
             // websocket

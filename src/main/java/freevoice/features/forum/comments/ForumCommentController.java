@@ -2,6 +2,7 @@ package freevoice.features.forum.comments;
 
 import freevoice.features.forum.comments.models.ForumCommentCreateDto;
 import freevoice.features.forum.comments.models.ForumCommentDto;
+import freevoice.features.forum.posts.models.ForumPostDto;
 import freevoice.shared.constants.URLS;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,23 @@ public class ForumCommentController {
     public ResponseEntity<List<ForumCommentDto>> getAll(@PathVariable Long id) {
         System.out.println("pathvariable " + id);
         return new ResponseEntity<>(commentService.getAllByPostId(id), HttpStatus.OK);
+    }
+
+    @GetMapping(URLS.getForumCommentsSize)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> getSize(
+            @PathVariable("id") Long postId) {
+        return new ResponseEntity<>(commentService.getSize(postId), HttpStatus.OK);
+    }
+
+    @GetMapping(URLS.getForumCommentsPage)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<ForumCommentDto>> getPage(
+            @PathVariable("id") int postId,
+            @PathVariable("pageIndex") int pageIndex,
+            @PathVariable("pageSize") int pageSize
+    ) {
+        return new ResponseEntity<>(commentService.getPage(postId, pageIndex, pageSize), HttpStatus.OK);
     }
 
     @DeleteMapping(URLS.deleteForumComment)

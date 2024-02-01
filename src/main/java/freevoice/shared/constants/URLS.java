@@ -31,6 +31,8 @@ public class URLS {
     public static final String deleteVideo = "/delete/{name}";
     public static final String playVideo = "/play/{name}";
     public static final String getAllVideoNames = "/getAllNames";
+    public static final String getVideoNamesSize = "/getSize";
+    public static final String getVideoNamesPage = "/getPage/{pageIndex}/{pageSize}";
     public static final String getAllVideos = "/getAll";
     public static final String getVideoByName = "/getByName/{name}";
     public static final String setVideoDescription = "/setDescription/{name}";
@@ -66,12 +68,14 @@ public class URLS {
     public static final String forumComment = "api/forumComment";
     public static final String createForumComment = "/create";
     public static final String getAllForumComments = "/getAll/{id}";
+    public static final String getForumCommentsSize = "/getSize/{id}";
+    public static final String getForumCommentsPage = "/getPage/{id}/{pageIndex}/{pageSize}";
     public static final String deleteForumComment = "/delete";
     public static final String likeForumComment = "/like/{id}";
     public static final String dislikeForumComment = "/dislike/{id}";
 
     // ARTICLES
-    public static final String articles = "api/articles";
+    public static final String articles = "api/article";
     public static final String createArticle = "/create";
     public static final String getAllArticles = "/getAll";
     public static final String getArticleByName = "/getByName/{name}";

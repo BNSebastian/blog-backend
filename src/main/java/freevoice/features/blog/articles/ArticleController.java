@@ -28,14 +28,14 @@ public class ArticleController {
         return new ResponseEntity<>(articleService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping(URLS.getArticleByName)
-    public ResponseEntity<ArticleEntity> getByName(@PathVariable("name") String name) {
-        return new ResponseEntity<>(articleService.getByName(name), HttpStatus.OK);
-    }
+//    @GetMapping(URLS.getArticleByName)
+//    public ResponseEntity<ArticleEntity> getByName(@PathVariable("name") String name) {
+//        return new ResponseEntity<>(articleService.getByName(name), HttpStatus.OK);
+//    }
 
-    @DeleteMapping(URLS.deleteArticle)
-    public ResponseEntity<String> delete(@RequestBody ArticleEntity articleEntity) {
-        articleService.delete(articleEntity);
-        return new ResponseEntity<>("Entry deleted", HttpStatus.OK);
-    }
+//    @DeleteMapping(URLS.deleteArticle)
+//    public ResponseEntity<String> delete(@RequestBody ArticleEntity articleEntity) {
+//        articleService.delete(articleEntity);
+//        return new ResponseEntity<>("Entry deleted", HttpStatus.OK);
+//    }
 }

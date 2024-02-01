@@ -26,8 +26,8 @@ public class ArticleEntity {
     @Column(length = 40000)
     private String content;
 
-    @Column(nullable = false, updatable = false)
-    @CreationTimestamp // not sure if it will work
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm MM/dd/yyyy")
-    private LocalDateTime createdOn;
+//    @Column(nullable = false, updatable = false)
+//    @CreationTimestamp // not sure if it will work
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm MM/dd/yyyy")
+//    private LocalDateTime createdOn;
 }

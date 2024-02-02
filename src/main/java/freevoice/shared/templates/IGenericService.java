@@ -9,4 +9,6 @@ public interface IGenericService<T, ID> {
     T getById(ID id);
     T update(ID id, T updatedEntity);
     void delete(ID id);
+    Long count();
+    List<T> getPage(int pageIndex, int pageSize);
 }

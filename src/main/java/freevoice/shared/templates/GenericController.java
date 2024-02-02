@@ -35,7 +35,10 @@ public class GenericController<T, ID> {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<T> update(@PathVariable ID id, @RequestBody T entity) {
+    public ResponseEntity<T> update(
+            @PathVariable ID id,
+            @RequestBody T entity
+    ) {
         T updatedEntity = genericService.update(id, entity);
         return ResponseEntity.ok(updatedEntity);
     }
@@ -44,5 +47,20 @@ public class GenericController<T, ID> {
     public ResponseEntity<Void> delete(@PathVariable ID id) {
         genericService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getCount() {
+        Long count = genericService.count();
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/getPage/{pageIndex}/{pageSize}")
+    public ResponseEntity<List<T>> getPage(
+            @PathVariable("pageIndex") int pageIndex,
+            @PathVariable("pageSize") int pageSize
+    ) {
+        List<T> page = genericService.getPage(pageIndex, pageSize);
+        return ResponseEntity.ok(page);
     }
 }

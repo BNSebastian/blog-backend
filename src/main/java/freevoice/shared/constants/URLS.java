@@ -46,12 +46,6 @@ public class URLS {
     public static final String updateVideoComment = "/updateComment";
     public static final String deleteVideoComment = "/deleteComment/{commentId}";
 
-    // LIVE CHAT
-    public static final String chat = "api/chat";
-    public static final String createChatComment = "/createComment";
-    public static final String getChatCommentById = "/getComment/{commentId}";
-    public static final String getAllChatComments = "/getAllComments";
-
     // FORUM POST
     public static final String forumPost = "api/forumPost";
     public static final String createForumPost = "/create";
@@ -76,9 +70,4 @@ public class URLS {
 
     // ARTICLES
     public static final String articles = "api/article";
-    public static final String createArticle = "/create";
-    public static final String getAllArticles = "/getAll";
-    public static final String getArticleByName = "/getByName/{name}";
-    public static final String updateArticle = "/update";
-    public static final String deleteArticle = "/delete";
 }

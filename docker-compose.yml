@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  be:
+    image: bnsebastian/backend
+    build:
+      context: .
+    container_name: be
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_USER=merovingian
+      - POSTGRES_PASSWORD=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/freevoice
+      - SPRING_DATASOURCE_USERNAME=merovingian
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8080:8080"
+
+  # Postgres service
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      POSTGRES_DB: freevoice
+      POSTGRES_USER: merovingian
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+
+  # Freevoice frontend service
+  fe:
+    image: bnsebastian/frontend
+    ports:
+      - "4200:4200"
+    networks:
+      - app-network
+
+networks:
+  # Define the app-network with the bridge driver
+  app-network:
+    driver: bridge

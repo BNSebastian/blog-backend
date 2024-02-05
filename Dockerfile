@@ -1,13 +1,12 @@
-FROM openjdk:21
+FROM openjdk:17-jdk-alpine
 
-# create user to run app as (instead of root)
-# RUN addgroup -S app && adduser -S app -G app
+ARG JAR_FILE=target/*.jar
 
-# use user "app"
-USER app
+COPY ${JAR_FILE} app.jar
 
-# copy the jar file into the docker image
-COPY target/*.jar app.jar
+ENV PORT=8080
 
-# run the jar file
+EXPOSE 8080
+
 ENTRYPOINT ["java", "-jar", "/app.jar"]
+

@@ -17,6 +17,14 @@ spring:
       max-file-size: 900MB
       max-request-size: 915MB
 
+#  ssl:
+#    bundle:
+#      pem:
+#        mybundle:
+#          keystore:
+#            certificate: file:/keys/fullchain.pem
+#            private-key: file:/keys/privkey.pem
+
 server:
   error:
     include-message: always

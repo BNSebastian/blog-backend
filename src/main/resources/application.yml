@@ -1,14 +1,13 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/freevoice
-    username: gandalf_the_blue
-    password: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:freevoice}
+    username: ${POSTGRES_USER:gandalf_the_blue}
+    password: ${POSTGRES_PASSWORD:postgres}
 
   jpa:
     hibernate:
       ddl-auto: create
-#    show-sql: true
 
   servlet:
     multipart:
@@ -17,15 +16,9 @@ spring:
       max-file-size: 900MB
       max-request-size: 915MB
 
-#  ssl:
-#    bundle:
-#      pem:
-#        mybundle:
-#          keystore:
-#            certificate: file:/keys/fullchain.pem
-#            private-key: file:/keys/privkey.pem
-
 server:
+  address: 0.0.0.0
+  port: 8080
   error:
     include-message: always
 

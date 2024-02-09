@@ -1,49 +1,45 @@
 version: "3.8"
 
 services:
-  be:
-    image: sebastianbn/backend
-    build:
-      context: .
-    container_name: be
-    depends_on:
-      - db
-    environment:
-      - POSTGRES_USER=gandalf_the_blue
-      - POSTGRES_PASSWORD=postgres
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/freevoice
-      - SPRING_DATASOURCE_USERNAME=gandalf_the_blue
-      - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    ports:
-      - "8080:8080"
-#    volumes:
-#      - /home/gandalf_the_blue/projects/freevoice:/keys   # Mounting the directory containing the keys into the container
-    networks:
-      - app-network
-
-  # Postgres service
-  db:
+  database-service:
     image: postgres
-    container_name: db
+    container_name: database-container
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_DB: freevoice
       POSTGRES_USER: gandalf_the_blue
       POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
+    networks:
+      - docker-net
+    restart: always
 
-  # Freevoice frontend service
-  fe:
+  backend-service:
+    image: sebastianbn/backend
+    container_name: backend-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database-service
+    environment:
+      POSTGRES_HOST: database-service
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: freevoice
+      POSTGRES_USER: gandalf_the_blue
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - docker-net
+    restart: always
+
+  frontend-service:
     image: sebastianbn/frontend
+    container_name: frontend-container
     ports:
       - "4200:4200"
-#    volumes:
-#      - /home/gandalf_the_blue/projects/freevoice:/etc/letsencrypt/live/bucovala-sebastian.go.ro
     networks:
-      - app-network
+      - docker-net
+    restart: always
 
 networks:
-  # Define the app-network with the bridge driver
-  app-network:
+  docker-net:
     driver: bridge

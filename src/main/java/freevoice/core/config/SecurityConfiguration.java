@@ -17,6 +17,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -32,14 +33,16 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200",
-                                                "https://localhost:4200",
-                                                "http://bucovala-sebastian.go.ro:4200",
-                                                "https://bucovala-sebastian.go.ro:4200",
-                                                "http://172.21.0.2:4200",
-                                                "https://172.21.0.2:4200",
-                                                "http://192.168.1.131:4200",
-                                                "https://192.168.1.131:4200"));
+//        configuration.setAllowedOrigins(List.of("http://localhost:4200",
+//                                                "https://localhost:4200",
+//                                                "http://frontend-service:4200",
+//                                                "http://bucovala-sebastian.go.ro:4200",
+//                                                "https://bucovala-sebastian.go.ro:4200",
+//                                                "http://172.21.0.2:4200",
+//                                                "https://172.21.0.2:4200",
+//                                                "http://192.168.1.131:4200",
+//                                                "https://192.168.1.131:4200"));
+        configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

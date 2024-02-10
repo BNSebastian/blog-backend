@@ -8,6 +8,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+      show-sql: true
+      format-sql: true
+      use-sql-comments: true
 
   servlet:
     multipart:

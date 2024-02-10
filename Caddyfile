@@ -1,0 +1,23 @@
+bucovala-sebastian.go.ro:5001 {
+	tls bucovala.sebastian@protonmail.com
+
+	handle {
+		reverse_proxy 192.168.1.132:4200
+	}
+
+	header {
+		Strict-Transport-Security max-age=31536000;
+	}
+
+	encode zstd gzip
+}
+
+bucovala-sebastian.go.ro:5002 {
+	tls bucovala.sebastian@protonmail.com
+
+	handle_path /api/* {
+		reverse_proxy 192.168.1.132:8080
+	}
+
+	encode zstd gzip
+}

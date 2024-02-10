@@ -1,23 +1,28 @@
 package freevoice.shared.constants;
 
 public class URLS {
-    /* FRONTEND
+    /*
+     * FRONTEND
      ********************************/
     public static final String FRONTEND = "http://localhost:4200";
-    /* USER AND AUTH
+
+    /*
+     * USER AND AUTH
      ********************************/
     public static final String user = "api/user";
     public static final String confirmUser = "registration/confirm&token=";
 
-    /* PAYMENT
+    /*
+     * PAYMENT
      ********************************/
     public static final String paypal = "api/paypal";
     public static final String initiatePayment = "/pay";
     public static final String paymentSuccess = "/success/{paymentId}/{payerId}";
-    public static final String paypalPaySuccess =  FRONTEND + "/#/donateSuccess";
+    public static final String paypalPaySuccess = FRONTEND + "/#/donateSuccess";
     public static final String paypalPayFailure = FRONTEND + "/#/home";
 
-    /* FILES
+    /*
+     * FILES
      ********************************/
     public static final String image = "api/image";
     public static final String setUserProfileImage = "/setProfileImage/{userId}";

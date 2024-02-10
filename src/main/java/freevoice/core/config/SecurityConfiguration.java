@@ -46,9 +46,9 @@ public class SecurityConfiguration {
                 "http://172.21.0.2:4200",
                 "https://172.21.0.2:4200",
                 "http://192.168.1.131:4200",
-                "https://192.168.1.131:4200")
-        );
-//        configuration.setAllowedOrigins(List.of("*"));
+                "https://192.168.1.131:4200",
+                "http://192.168.1.132:4200"));
+        // configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -60,40 +60,40 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/auth/**"))
-                .permitAll();
+                    .permitAll();
 
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/user/**"))
-                .permitAll();
+                    .permitAll();
 
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/image/**"))
-                .permitAll();
+                    .permitAll();
 
             // TODO: ADJUST FOR VIDEO UPLOAD
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**"))
-                .permitAll();
+                    .permitAll();
 
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/videoComment/**"))
-                .authenticated();
+                    .authenticated();
 
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumPost/**"))
-                .permitAll();
+                    .permitAll();
 
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumComment/**"))
-                .authenticated();
+                    .authenticated();
 
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/chat/**"))
-                .authenticated();
+                    .authenticated();
 
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/paypal/**"))
-                .permitAll();
+                    .permitAll();
 
             auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/article/**"))
-                .permitAll();
+                    .permitAll();
 
-            //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");
+            // auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");
 
             // websocket
-            //auth.requestMatchers(AntPathRequestMatcher.antMatcher("/ws/**")).permitAll();
+            // auth.requestMatchers(AntPathRequestMatcher.antMatcher("/ws/**")).permitAll();
         });
 
         http.csrf(AbstractHttpConfigurer::disable);
@@ -106,11 +106,11 @@ public class SecurityConfiguration {
 
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-//        // Adding a custom security filter for WebSocket connections
-//        http.headers(headers -> {
-//            headers.cacheControl(withDefaults()).disable();
-//            headers.frameOptions(withDefaults()).disable();
-//        });
+        // // Adding a custom security filter for WebSocket connections
+        // http.headers(headers -> {
+        // headers.cacheControl(withDefaults()).disable();
+        // headers.frameOptions(withDefaults()).disable();
+        // });
 
         return http.build();
     }

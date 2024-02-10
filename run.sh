@@ -1,0 +1,1 @@
+sudo mvn exec:java -Dexec.mainClass="freevoice.FreevoiceApplication"

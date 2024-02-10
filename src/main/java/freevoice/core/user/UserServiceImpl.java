@@ -2,16 +2,10 @@ package freevoice.core.user;
 
 import freevoice.core.auth.registration.token.ConfirmationToken;
 import freevoice.core.auth.registration.token.ConfirmationTokenService;
-import org.apache.catalina.User;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;

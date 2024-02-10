@@ -24,7 +24,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ConfirmationTokenService confirmationTokenService) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder,
+            ConfirmationTokenService confirmationTokenService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.confirmationTokenService = confirmationTokenService;
@@ -42,6 +43,11 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(userEntity);
     }
 
+    /**
+     * Returns a list of all users in the system.
+     *
+     * @return a list of all users in the system
+     */
     @Override
     public Optional<List<UserEntity>> getAll() {
         List<UserEntity> users = userRepository.findAll();
@@ -73,11 +79,10 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-
     @Override
     public UserEntity loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
-                             .orElseThrow(() -> new UsernameNotFoundException(String.format(email)));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(email)));
     }
 
     @Override
@@ -106,13 +111,12 @@ public class UserServiceImpl implements UserService {
                 token,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(15),
-                appUser
-        );
+                appUser);
 
         confirmationTokenService.saveConfirmationToken(
                 confirmationToken);
 
-//        TODO: SEND EMAIL
+        // TODO: SEND EMAIL
 
         return token;
     }

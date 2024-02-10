@@ -45,24 +45,23 @@ public class UserEntity implements UserDetails {
 
     private Long profileImageId;
 
-    @OneToMany(cascade=ALL, mappedBy = "user")
+    @OneToMany(cascade = ALL, mappedBy = "user")
     public List<VideoComment> videoComments;
 
-    @OneToMany(cascade=ALL, mappedBy = "userEntity")
+    @OneToMany(cascade = ALL, mappedBy = "userEntity")
     public List<ForumPost> forumPosts;
 
-    @OneToMany(cascade=ALL, mappedBy = "userEntity")
+    @OneToMany(cascade = ALL, mappedBy = "userEntity")
     public List<ForumComment> forumComments;
 
     public UserEntity(Role role,
-                      String firstname,
-                      String lastname,
-                      String username,
-                      String email,
-                      String password,
-                      Boolean locked,
-                      Boolean enabled)
-    {
+            String firstname,
+            String lastname,
+            String username,
+            String email,
+            String password,
+            Boolean locked,
+            Boolean enabled) {
         this.role = role;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -108,7 +107,7 @@ public class UserEntity implements UserDetails {
         return enabled;
     }
 
-//    @OneToMany(cascade=ALL, mappedBy = "userEntity")
-//    public List<Activity> activities;
+    // @OneToMany(cascade=ALL, mappedBy = "userEntity")
+    // public List<Activity> activities;
 
 }

@@ -32,53 +32,51 @@ public class AuthenticationService {
         }
 
         var user = UserEntity.builder()
-                             .firstname(request.getFirstname())
-                             .lastname(request.getLastname())
-                             .email(request.getEmail())
-                             .password(passwordEncoder.encode(request.getPassword()))
-                             .role(Role.USER)
-                             .profileImageId(1L)
-                             .build();
+                .firstname(request.getFirstname())
+                .lastname(request.getLastname())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.USER)
+                .profileImageId(1L)
+                .build();
 
-//        String emailToken = userService.signUpUser(user);
-//        String emailLink = URLS.confirmUser + emailToken;
-//        emailSender.send(request.getEmail(),
-//                         registrationService.buildEmail(request.getFirstname(),
-//                                                        emailLink));
+        // String emailToken = userService.signUpUser(user);
+        // String emailLink = URLS.confirmUser + emailToken;
+        // emailSender.send(request.getEmail(),
+        // registrationService.buildEmail(request.getFirstname(),
+        // emailLink));
 
         var savedUser = userRepository.save(user);
 
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
-                                     .id(user.getId())
-                                     .email(user.getEmail())
-                                     .firstname(user.getFirstname())
-                                     .lastname(user.getLastname())
-                                     .token(jwtToken)
-                                     .build();
+                .id(user.getId())
+                .email(user.getEmail())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .token(jwtToken)
+                .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
-                        request.getPassword()
-                )
-        );
+                        request.getPassword()));
 
         var user = userRepository.findByEmail(request.getEmail())
-                                 .orElseThrow();
+                .orElseThrow();
 
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
-                                     .id(user.getId())
-                                     .email(user.getEmail())
-                                     .firstname(user.getFirstname())
-                                     .lastname(user.getLastname())
-                                     //.profileImage(new ByteArrayResource(user.getProfileImage()))
-                                     .token(jwtToken)
-                                     .build();
+                .id(user.getId())
+                .email(user.getEmail())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                // .profileImage(new ByteArrayResource(user.getProfileImage()))
+                .token(jwtToken)
+                .build();
     }
 }

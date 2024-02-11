@@ -27,6 +27,8 @@ public class URLS {
     public static final String image = "api/image";
     public static final String setUserProfileImage = "/setProfileImage/{userId}";
     public static final String getUserProfileImage = "/getProfileImage/{userEmail}";
+    public static final String getUserProfileImages = "/getUserProfileImages";
+    public static final String saveUserProfileImage = "/saveUserProfileImage";
 
     // VIDEOS
     public static final String video = "api/video";

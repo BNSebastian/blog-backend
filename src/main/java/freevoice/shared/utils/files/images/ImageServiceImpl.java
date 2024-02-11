@@ -12,9 +12,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -79,18 +79,25 @@ public class ImageServiceImpl implements ImageService {
         return new ByteArrayResource(foundImage.getFile());
     }
 
-    /**
-     * Returns all profile images as a list of byte arrays.
-     *
-     * @return a list of byte arrays containing the profile images
-     */
     @Override
-    public List<ByteArrayResource> getAllProfileImages() {
-        List<Image> images = imageRepository.findAll();
+    public List<Long> getPrimaryKeys() {
+        List<Long> result = new ArrayList<>();
 
-        return images
-                .stream()
-                .map(current -> new ByteArrayResource(current.getFile()))
-                .collect(Collectors.toList());
+        imageRepository
+                .findAll()
+                .forEach(current -> result.add(current.getId()));
+
+        System.out.println(result.toString());
+        return result;
+    }
+
+    @Override
+    public ByteArrayResource getById(Long id) {
+
+        Image foundImage = imageRepository
+                .findById(id)
+                .orElseThrow();
+
+        return new ByteArrayResource(foundImage.getFile());
     }
 }

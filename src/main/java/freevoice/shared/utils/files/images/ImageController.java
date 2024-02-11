@@ -33,6 +33,7 @@ public class ImageController {
     public ResponseEntity<Boolean> setProfileImage(
             @PathVariable("userId") Long userId,
             @PathVariable("imageId") Long imageId) throws IOException {
+        System.out.println("ImageController::setProfileImage - trying to set profile image");
         return new ResponseEntity<>(
                 imageService.setProfileImage(userId, imageId),
                 HttpStatus.OK);
@@ -68,16 +69,26 @@ public class ImageController {
     }
 
     /**
-     * Returns the profile image for the specified user.
+     * Returns the image data for the specified image ID.
      *
-     * @param userEmail the email of the user
-     * @return the profile image as a PNG file
+     * @param id the ID of the image
+     * @return the image data as a PNG file
      */
-    @GetMapping(URLS.getUserProfileImage)
-    public ResponseEntity<List<ByteArrayResource>> getUserProfileImages() {
+    @GetMapping(URLS.getProfileImageById)
+    public ResponseEntity<ByteArrayResource> getById(@PathVariable("id") Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.IMAGE_PNG)
-                .body(imageService.getAllProfileImages());
+                .body(imageService.getById(id));
+    }
+
+    /**
+     * Returns a list of all image IDs.
+     *
+     * @return a list of all image IDs
+     */
+    @GetMapping(URLS.getProfileImageCount)
+    public ResponseEntity<List<Long>> getPrimaryKeys() {
+        return ResponseEntity.ok(imageService.getPrimaryKeys());
     }
 }

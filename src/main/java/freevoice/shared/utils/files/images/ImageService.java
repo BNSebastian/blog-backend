@@ -14,5 +14,7 @@ public interface ImageService {
 
     ByteArrayResource getProfileImage(String userEmail);
 
-    List<ByteArrayResource> getAllProfileImages();
+    ByteArrayResource getById(Long id);
+
+    List<Long> getPrimaryKeys();
 }

@@ -25,10 +25,12 @@ public class URLS {
      * FILES
      ********************************/
     public static final String image = "api/image";
-    public static final String setUserProfileImage = "/setProfileImage/{userId}";
+    public static final String setUserProfileImage = "/setProfileImage/{userId}/{imageId}";
     public static final String getUserProfileImage = "/getProfileImage/{userEmail}";
     public static final String getUserProfileImages = "/getUserProfileImages";
     public static final String saveUserProfileImage = "/saveUserProfileImage";
+    public static final String getProfileImageCount = "/getProfileImageCount";
+    public static final String getProfileImageById = "/getProfileImageById/{id}";
 
     // VIDEOS
     public static final String video = "api/video";
@@ -77,4 +79,5 @@ public class URLS {
 
     // ARTICLES
     public static final String articles = "api/article";
+
 }

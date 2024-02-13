@@ -29,8 +29,10 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Builder.Default
     private Boolean locked = false;
 
+    @Builder.Default
     private Boolean enabled = true;
 
     private String firstname;

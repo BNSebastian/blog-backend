@@ -1,43 +1,49 @@
 spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:freevoice}
-    username: ${POSTGRES_USER:gandalf_the_blue}
-    password: ${POSTGRES_PASSWORD:postgres}
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:freevoice}
+        username: ${POSTGRES_USER:gandalf_the_blue}
+        password: ${POSTGRES_PASSWORD:postgres}
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-      show-sql: true
-      format-sql: true
-      use-sql-comments: true
+    jpa:
+        hibernate:
+            ddl-auto: create
+            show-sql: true
+            format-sql: true
+            use-sql-comments: true
 
-  servlet:
-    multipart:
-      enabled: true
-      file-size-threshold: 2KB
-      max-file-size: 900MB
-      max-request-size: 915MB
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 2KB
+            max-file-size: 900MB
+            max-request-size: 915MB
 
 server:
-  address: 0.0.0.0
-  port: 8080
-  error:
-    include-message: always
+    address: 0.0.0.0
+    port: 8080
+    error:
+        include-message: always
+    ssl:
+        enabled: true
+        key-store-type: PKCS12
+        key-store: classpath:keystore.p12
+        key-store-password: freevoice
+        key-alias: tomcat
 
-  mail:
-    host: 172.17.0.3
-    port: 25
-    username: user01@james.local
-    password: 1234
-    properties:
-      mail:
-        smtp:
-          ssl:
-            trust: "*"
-          auth: true
-          starttls:
-            enable: true
-          connectiontimeout: 10000
-          timeout: 10000
-          writetimeout: 10000
+    mail:
+        host: 172.17.0.3
+        port: 25
+        username: user01@james.local
+        password: 1234
+        properties:
+            mail:
+                smtp:
+                    ssl:
+                        trust: "*"
+                    auth: true
+                    starttls:
+                        enable: true
+                    connectiontimeout: 10000
+                    timeout: 10000
+                    writetimeout: 10000

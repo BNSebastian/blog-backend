@@ -1,7 +1,10 @@
 package freevoice.core.user;
 
+import freevoice.core.user.Role;
 import freevoice.core.auth.registration.token.ConfirmationToken;
 import freevoice.core.auth.registration.token.ConfirmationTokenService;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -48,12 +52,24 @@ public class UserServiceImpl implements UserService {
         return Optional.of(users);
     }
 
+    /**
+     * Returns whether the user with the specified ID has the admin role.
+     *
+     * @param id the ID of the user
+     * @return true if the user has the admin role, false otherwise
+     */
     @Override
     public Boolean checkIfAdmin(Long id) {
-        UserEntity currentUser = userRepository.findById(id).orElseThrow();
-        String role = currentUser.getRole().toString();
-        System.out.println("--- current user role is " + role);
-        return role.equals("ADMIN");
+        Optional<UserEntity> userOptional = userRepository.findById(id);
+
+        return userOptional.map(user -> {
+            var role = user.getRole();
+            log.info("checkIfAdmin:: user with id: {} has role: {}", id, role);
+            return role.equals(Role.ADMIN);
+        }).orElseGet(() -> {
+            log.info("checkIfAdmin:: user with id: {} wasn't found", id);
+            return false;
+        });
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -17,69 +18,137 @@ public class GenericService<T, ID> implements IGenericService<T, ID> {
         this.repository = repository;
     }
 
+    /**
+     * Saves a new entity in the database and returns it.
+     * 
+     * @param entity the entity to be saved
+     * @return the saved entity
+     */
+    @SuppressWarnings("null")
     @Override
     public T create(T entity) {
         T createdEntity = repository.save(entity);
-        log.info("Entity created successfully: {}", createdEntity);
+        log.info("create:: entry created");
         return createdEntity;
     }
 
+    /**
+     * Returns a list of all entities in the database.
+     *
+     * @return a list of all entities in the database
+     */
     @Override
     public List<T> getAll() {
         List<T> entities = repository.findAll();
-        log.info("Retrieved all entities: {}", entities);
+        log.info("getAll:: retrieved all entries");
         return entities;
     }
 
-    @Override
+    /**
+     * Returns an entity by its ID.
+     *
+     * @param id the ID of the entity to be retrieved
+     * @return the entity with the specified ID, or null if no entity with the
+     *         specified ID exists
+     */
+    @SuppressWarnings("null")
     public T getById(ID id) {
-        T entity = repository
-                .findById(id)
-                .orElseThrow(() -> new GenericNotFoundEx("Entry with id " + id + " not found"));
-        log.info("Retrieved entity by ID {}: {}", id, entity);
-        return entity;
+        Optional<T> entryOptional = repository.findById(id);
+
+        return entryOptional.map(entry -> {
+            log.info("getById:: retrieved entry with id: {}", id);
+            return entry;
+        }).orElseGet(() -> {
+            log.error("getById:: could not retrieve entry with id: {}", id);
+            return null;
+        });
     }
 
+    /**
+     * Updates an existing entity in the database and returns the updated entity.
+     *
+     * @param id            the ID of the entity to be updated
+     * @param updatedEntity the updated entity with the new values
+     * @return the updated entity
+     */
+    @SuppressWarnings("null")
     @Override
     public T update(ID id, T updatedEntity) {
-        // Find the existing entity by ID
-        T existingEntity = repository.findById(id)
-                                     .orElseThrow(() -> new GenericNotFoundEx("Entry with id " + id + " not found for update"));
+        Optional<T> entryOptional = repository.findById(id);
 
-        // Copy the properties from the updatedEntity to the existingEntity
-        // Assuming you have a utility method or library to perform the copy
-        copyProperties(updatedEntity, existingEntity);
-
-        // Save the updated entity
-        T savedEntity = repository.save(existingEntity);
-
-        log.info("Entity updated successfully: {}", savedEntity);
-        return savedEntity;
+        return entryOptional.map(existingEntry -> {
+            // copy the updated properties to the existing entity
+            copyProperties(updatedEntity, existingEntry);
+            // save the updated entity
+            T savedEntity = repository.save(existingEntry);
+            // log the update
+            log.info("update:: entry with id: {} updated successfully", id);
+            return savedEntity;
+        }).orElseGet(() -> {
+            // log that the update failed
+            log.error("update:: could not update entry with id: {}", id);
+            return null;
+        });
+        // T existingEntity = repository
+        // .findById(id)
+        // .orElseThrow(() -> new GenericNotFoundEx("Entry with id " + id + " not found
+        // for update"));
+        // copyProperties(updatedEntity, existingEntity);
+        // T savedEntity = repository.save(existingEntity);
+        // log.info("Entity updated successfully: {}", savedEntity);
+        // return savedEntity;
     }
 
-    // Utility method to copy properties from one object to another
+    /**
+     * Copies the properties of the given source object to the given target object.
+     *
+     * @param source the source object
+     * @param target the target object
+     */
+    @SuppressWarnings("null")
     private void copyProperties(Object source, Object target) {
         BeanUtils.copyProperties(source, target);
     }
 
+    /**
+     * Deletes an entity from the database by its ID.
+     *
+     * @param id the ID of the entity to be deleted
+     */
+    @SuppressWarnings("null")
     @Override
     public void delete(ID id) {
         repository.deleteById(id);
-        log.info("Entity deleted successfully with ID: {}", id);
+        log.info("delete:: successfully deleted entry with id: {}", id);
     }
 
+    /**
+     * Returns the total number of entities in the database.
+     *
+     * @return the total number of entities in the database
+     * @throws GenericNotFoundEx if an error occurs while counting the entries
+     */
     @Override
     public Long count() {
         try {
             Long count = repository.count();
-            log.info("Retrieved number entities available: {}", count);
+            log.info("count:: {} entries retrieved", count);
             return count;
         } catch (Exception ex) {
-            log.error("Error counting entities: {}", ex.getMessage());
-            throw new GenericNotFoundEx("Error counting entities", ex);
+            log.error("count:: error counting entries: {}", ex.getMessage());
+            throw new GenericNotFoundEx("count:: error counting entries", ex);
         }
     }
 
+    /**
+     * Returns a page of entries from the database, starting from the specified page
+     * index and with the specified page size.
+     * 
+     * @param pageIndex the index of the first entry in the page (zero-based)
+     * @param pageSize  the number of entries in the page
+     * @return a page of entries, or null if no entries are present
+     * @throws GenericNotFoundEx if an error occurs while retrieving the entries
+     */
     public List<T> getPage(int pageIndex, int pageSize) {
         List<T> entries = repository.findAll();
         int entrySize = entries.size();
@@ -87,10 +156,10 @@ public class GenericService<T, ID> implements IGenericService<T, ID> {
         int right = left + pageSize;
 
         if (entrySize == 0) {
-            log.warn("No entries present");
+            log.warn("getPage:: no entries present");
             return null;
         } else if (entrySize < left) {
-            log.warn("Initial index is out of bounds");
+            log.error("getPage:: initial index is out of bounds");
             return null;
         }
 
@@ -99,8 +168,7 @@ public class GenericService<T, ID> implements IGenericService<T, ID> {
         }
 
         List<T> result = entries.subList(left, right);
-        log.info("Retrieved page ({} - {}) of entities: {}", left, right, result);
+        log.info("getPage:: retrieved page with index: {} and size: {}", pageIndex, pageSize);
         return result;
     }
 }
-

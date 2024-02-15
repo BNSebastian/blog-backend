@@ -55,41 +55,75 @@ public class SecurityConfiguration {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http.authorizeHttpRequests(auth -> {
-                        auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/auth/**"))
+                        // auhentication
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/auth/**"))
                                         .permitAll();
-
-                        auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/user/**"))
-                                        .permitAll();
-
-                        auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/image/**"))
-                                        .permitAll();
-
-                        // TODO: ADJUST FOR VIDEO UPLOAD
-                        auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/video/**"))
-                                        .permitAll();
-
-                        auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/videoComment/**"))
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/auth/isAdmin"))
+                                        .authenticated();
+                        // user
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/user/**"))
                                         .authenticated();
 
-                        auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumPost/**"))
+                        // profile pictures
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/image/**"))
+                                        .authenticated();
+                        // videos
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/video/**"))
                                         .permitAll();
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/video/upload"))
+                                        .hasRole("ADMIN");
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/video/changeVideo/**"))
+                                        .hasRole("ADMIN");
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/video/changeName/**"))
+                                        .hasRole("ADMIN");
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/video/delete/**"))
+                                        .hasRole("ADMIN");
 
-                        auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forumComment/**"))
+                        // video comments
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/videoComment/**"))
                                         .authenticated();
 
-                        auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/chat/**"))
+                        // forum posts
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/forumPost/**"))
+                                        .authenticated();
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/forumPost/pinForumPost/**"))
+                                        .hasRole("ADMIN");
+
+                        // forum comments
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/forumComment/**"))
                                         .authenticated();
 
-                        auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/paypal/**"))
-                                        .permitAll();
+                        // articles
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/article/**"))
+                                        .authenticated();
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/article/create"))
+                                        .hasRole("ADMIN");
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/article/update/**"))
+                                        .hasRole("ADMIN");
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/article/delete/**"))
+                                        .hasRole("ADMIN");
 
-                        auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/article/**"))
-                                        .permitAll();
-
-                        // auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/time/ADMIN")).hasRole("ADMIN");
-
-                        // websocket
-                        // auth.requestMatchers(AntPathRequestMatcher.antMatcher("/ws/**")).permitAll();
+                        // paypal
+                        auth.requestMatchers(AntPathRequestMatcher
+                                        .antMatcher("/api/paypal/**"))
+                                        .authenticated();
                 });
 
                 http.csrf(AbstractHttpConfigurer::disable);

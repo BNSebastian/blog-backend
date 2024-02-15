@@ -4,7 +4,7 @@ public class URLS {
     /*
      * FRONTEND
      ********************************/
-    public static final String FRONTEND = "http://localhost:4200";
+    public static final String FRONTEND = "https://bucovala-sebastian.go.ro:4200";
 
     /*
      * USER AND AUTH

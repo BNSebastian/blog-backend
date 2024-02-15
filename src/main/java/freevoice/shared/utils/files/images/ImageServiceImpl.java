@@ -3,6 +3,7 @@ package freevoice.shared.utils.files.images;
 import freevoice.core.user.UserEntity;
 import freevoice.core.user.UserRepository;
 import freevoice.shared.utils.files.images.models.Image;
+import lombok.extern.slf4j.Slf4j;
 import freevoice.shared.utils.files.images.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -15,7 +16,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
+@Slf4j
 @Service
 public class ImageServiceImpl implements ImageService {
 
@@ -61,22 +64,30 @@ public class ImageServiceImpl implements ImageService {
     }
 
     /**
-     * Returns the profile image for the specified user.
+     * Returns the profile image for the specified user, or null if no image is set.
      *
      * @param userEmail the email of the user
-     * @return the profile image as a byte array
-     * @throws UserNotFoundException if the user could not be found
+     * @return the profile image, or null if no image is set
      */
+    @SuppressWarnings("null")
     @Override
     @Transactional
     public ByteArrayResource getProfileImage(String userEmail) {
-        UserEntity foundUser = userRepository.findByEmail(userEmail)
-                .orElseThrow();
-
-        Image foundImage = imageRepository.findById(foundUser.getProfileImageId())
-                .orElseThrow(() -> new UserNotFoundException(userEmail));
-
-        return new ByteArrayResource(foundImage.getFile());
+        Optional<UserEntity> userOptional = userRepository.findByEmail(userEmail);
+        if (userOptional.isPresent()) {
+            UserEntity foundUser = userOptional.get();
+            Optional<Image> imageOptional = imageRepository.findById(foundUser.getProfileImageId());
+            if (imageOptional.isPresent()) {
+                Image foundImage = imageOptional.get();
+                log.info("getProfileImage:: profile image found for user: {}", userEmail);
+                return new ByteArrayResource(foundImage.getFile());
+            } else {
+                log.warn("getProfileImage:: profile image not found for user: {}", userEmail);
+            }
+        } else {
+            log.warn("getProfileImage: user with email: {} not found", userEmail);
+        }
+        return null;
     }
 
     @Override

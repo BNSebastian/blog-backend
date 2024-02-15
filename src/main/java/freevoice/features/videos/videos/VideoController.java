@@ -1,6 +1,5 @@
 package freevoice.features.videos.videos;
 
-import freevoice.features.forum.posts.models.ForumPostDto;
 import freevoice.features.videos.videos.models.ChangeVideoNameRequest;
 import freevoice.features.videos.videos.models.Video;
 import freevoice.features.videos.videos.models.VideoDto;
@@ -26,9 +25,10 @@ public class VideoController {
     private VideoService videoService;
 
     @PostMapping(URLS.uploadVideos)
-    public ResponseEntity<List<String>> uploadVideos(@RequestParam("files") List<MultipartFile> multipartFiles) throws IOException {
+    public ResponseEntity<List<String>> uploadVideos(@RequestParam("files") List<MultipartFile> multipartFiles)
+            throws IOException {
         List<String> uploadedFiles = new ArrayList<>();
-        for(MultipartFile file : multipartFiles) {
+        for (MultipartFile file : multipartFiles) {
             String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
             Video savedVideo = videoService.uploadVideo(file, filename);
             uploadedFiles.add(savedVideo.getName());
@@ -45,11 +45,12 @@ public class VideoController {
 
     @PostMapping(URLS.changeVideoName)
     public ResponseEntity<String> changeVideoName(@RequestBody ChangeVideoNameRequest request) {
-        return new ResponseEntity<>(videoService.changeVideoName(request.getOldName(), request.getNewName()), HttpStatus.OK);
+        return new ResponseEntity<>(videoService.changeVideoName(request.getOldName(), request.getNewName()),
+                HttpStatus.OK);
     }
 
     @GetMapping(URLS.playVideo)
-    public ResponseEntity<ByteArrayResource> playVideo(@PathVariable("name") String name){
+    public ResponseEntity<ByteArrayResource> playVideo(@PathVariable("name") String name) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
@@ -57,7 +58,7 @@ public class VideoController {
     }
 
     @GetMapping(URLS.getAllVideoNames)
-    public ResponseEntity<List<String>> getAllVideoNames(){
+    public ResponseEntity<List<String>> getAllVideoNames() {
         return ResponseEntity.ok(videoService.getAllVideoNames());
     }
 
@@ -71,36 +72,34 @@ public class VideoController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<String>> getPage(
             @PathVariable("pageIndex") int pageIndex,
-            @PathVariable("pageSize") int pageSize
-    ) {
+            @PathVariable("pageSize") int pageSize) {
         return new ResponseEntity<>(videoService.getPage(pageIndex, pageSize), HttpStatus.OK);
     }
 
     @GetMapping(URLS.getAllVideos)
-    public ResponseEntity<List<VideoDto>> getAllVideos(){
+    public ResponseEntity<List<VideoDto>> getAllVideos() {
         return new ResponseEntity<>(videoService.getAllVideos(), HttpStatus.OK);
     }
 
     @GetMapping(URLS.getVideoByName)
-    public ResponseEntity<VideoDto> getVideoByName(@PathVariable("name") String videoName){
+    public ResponseEntity<VideoDto> getVideoByName(@PathVariable("name") String videoName) {
         return new ResponseEntity<>(videoService.getVideoDto(videoName), HttpStatus.OK);
     }
 
     @PostMapping(URLS.setVideoDescription)
     public ResponseEntity<String> setDescription(
             @PathVariable("name") String name,
-            @RequestBody String description
-    ){
+            @RequestBody String description) {
         return new ResponseEntity<>(videoService.setVideoDescription(name, description), HttpStatus.OK);
     }
 
     @GetMapping(URLS.getVideoDescription)
-    public ResponseEntity<String> getDescription(@PathVariable("name") String name){
+    public ResponseEntity<String> getDescription(@PathVariable("name") String name) {
         return new ResponseEntity<>(videoService.getVideoDescription(name), HttpStatus.OK);
     }
 
     @DeleteMapping(URLS.deleteVideo)
-    public ResponseEntity<Boolean> deleteVideo(@PathVariable("name") String name){
+    public ResponseEntity<Boolean> deleteVideo(@PathVariable("name") String name) {
         return new ResponseEntity<>(videoService.deleteVideo(name), HttpStatus.OK);
     }
 }

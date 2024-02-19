@@ -37,8 +37,7 @@ public class GenericController<T, ID> {
     @PutMapping("/update/{id}")
     public ResponseEntity<T> update(
             @PathVariable ID id,
-            @RequestBody T entity
-    ) {
+            @RequestBody T entity) {
         T updatedEntity = genericService.update(id, entity);
         return ResponseEntity.ok(updatedEntity);
     }
@@ -58,8 +57,7 @@ public class GenericController<T, ID> {
     @GetMapping("/getPage/{pageIndex}/{pageSize}")
     public ResponseEntity<List<T>> getPage(
             @PathVariable("pageIndex") int pageIndex,
-            @PathVariable("pageSize") int pageSize
-    ) {
+            @PathVariable("pageSize") int pageSize) {
         List<T> page = genericService.getPage(pageIndex, pageSize);
         return ResponseEntity.ok(page);
     }

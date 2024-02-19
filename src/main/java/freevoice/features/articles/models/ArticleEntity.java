@@ -1,14 +1,10 @@
 package freevoice.features.articles.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -26,8 +22,8 @@ public class ArticleEntity {
     @Column(length = 40000)
     private String content;
 
-//    @Column(nullable = false, updatable = false)
-//    @CreationTimestamp // not sure if it will work
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm MM/dd/yyyy")
-//    private LocalDateTime createdOn;
+    // @Column(nullable = false, updatable = false)
+    // @CreationTimestamp // not sure if it will work
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm MM/dd/yyyy")
+    // private LocalDateTime createdOn;
 }

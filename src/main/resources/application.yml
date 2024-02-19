@@ -20,12 +20,12 @@ spring:
             max-request-size: 915MB
 
 server:
-    address: 0.0.0.0
-    port: 8080
+    address: ${HOST_ADDRESS:0.0.0.0}
+    port: ${HOST_PORT:8080}
     error:
         include-message: always
     ssl:
-        enabled: true
+        enabled: ${SSL_ENABLED:true}
         key-store-type: PKCS12
         key-store: classpath:keystore.p12
         key-store-password: freevoice
